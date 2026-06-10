@@ -32,7 +32,7 @@ Open `index.html` in a modern browser.
 - Three-lens cognitive science, curriculum studies, and media ecology bridge
 - Interactive four-dimension framework
 - Productive/exclusionary friction case
-- Curriculum-studies pathway tabs
+- Curriculum-studies pathway tabs with four responsive visual models
 - Clickable distributed-curriculum system map
 - Everyday subversion practice explorer
 - Guided praxis statement builder with a copy-for-chat action
