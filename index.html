@@ -302,6 +302,29 @@
       background: rgba(255,255,255,.055);
     }
     .choices { display: flex; gap: 12px; flex-wrap: wrap; }
+    .path-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .primer-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 9px 16px;
+      border: 2px solid var(--forest);
+      border-radius: 999px;
+      color: white;
+      background: var(--forest);
+      font-size: clamp(.8rem, 1vw, 1rem);
+      font-weight: 750;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(24,60,50,.18);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .primer-link:hover { transform: translateY(-2px); background: var(--moss); }
     .reveal { display: none; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
     .reveal.show { display: block; animation: rise .3s ease; }
     @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -880,11 +903,14 @@
       <div class="topline"><span class="kicker">Reviewer 2 · Stronger conceptual pathways</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Pedagogical friction is already a <em>curriculum studies</em> question</h2>
-        <div class="choices" id="pathTabs">
-          <button class="tab selected" data-path="currere">Currere</button>
-          <button class="tab" data-path="languages">Languages of curriculum</button>
-          <button class="tab" data-path="hidden">Hidden curriculum</button>
-          <button class="tab" data-path="fugitive">Fugitivity</button>
+        <div class="path-controls">
+          <div class="choices" id="pathTabs">
+            <button class="tab selected" data-path="currere">Currere</button>
+            <button class="tab" data-path="languages">Languages of curriculum</button>
+            <button class="tab" data-path="hidden">Hidden curriculum</button>
+            <button class="tab" data-path="fugitive">Fugitivity</button>
+          </div>
+          <a class="primer-link" href="https://minerclass.github.io/Curriculum-Studies-Primer/" target="_blank" rel="noopener">Explore the Curriculum Studies Primer ↗</a>
         </div>
         <div class="interaction" style="margin-top:20px; min-height:300px;" aria-live="polite">
           <article class="path-content show" id="currere">
@@ -938,7 +964,7 @@
           </article>
         </div>
       </div>
-      <div class="footer"><span>The pathway is not “AI applied to curriculum.”</span><a href="https://minerclass.github.io/Curriculum-Studies-Primer/" target="_blank" rel="noopener">Open Curriculum Studies Primer ↗</a></div>
+      <div class="footer"><span>The pathway is not “AI applied to curriculum.”</span><span>It is a question of subject formation, authority, and refusal.</span></div>
       <aside class="speaker-notes">This is the direct response to Reviewer 2. Avoid name-checking. Explain what each pathway changes about the argument. The curriculum-studies contribution is the relocation of AI from tool-choice discourse into questions of subject formation, authority, hidden curriculum, and refusal.</aside>
     </section>
 
