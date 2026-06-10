@@ -6,6 +6,9 @@ Interactive, self-contained HTML presentation for the American Association for t
 
 <https://minerclass.github.io/aaacs-2026-pedagogical-friction/>
 
+Curriculum Studies companion:
+<https://minerclass.github.io/Curriculum-Studies-Primer/>
+
 ## Open
 
 Open `index.html` in a modern browser.
