@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive AAACS 2026 presentation on pedagogical friction as subversive praxis.">
+  <title>Pedagogical Friction as Subversive Praxis | AAACS 2026</title>
+  <style>
+    :root {
+      --ink: #171914;
+      --paper: #f4f0e6;
+      --paper-2: #e8e0d0;
+      --forest: #183c32;
+      --moss: #49735f;
+      --ember: #b84f32;
+      --gold: #d5ae58;
+      --blue: #315d7a;
+      --muted: #6b6b62;
+      --line: rgba(23, 25, 20, .18);
+      --shadow: 0 24px 70px rgba(0, 0, 0, .28);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+      --mono: Consolas, "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { background: #0d1714; color: var(--ink); font-family: var(--sans); }
+    button, a, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, textarea:focus-visible {
+      outline: 4px solid var(--gold);
+      outline-offset: 4px;
+    }
+    a { color: inherit; }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(16px, 2.1vh, 28px);
+      padding: clamp(30px, 4vw, 72px) clamp(34px, 6vw, 112px) clamp(28px, 4vw, 62px);
+      background:
+        radial-gradient(circle at 92% 8%, rgba(213, 174, 88, .22), transparent 28%),
+        linear-gradient(135deg, var(--paper), #f7f4ed 70%);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(4%);
+      transition: opacity .35s ease, transform .35s ease, visibility .35s;
+      overflow: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      z-index: 2;
+    }
+
+    .slide.dark {
+      color: #f6f0df;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+        radial-gradient(circle at 85% 18%, rgba(184, 79, 50, .28), transparent 28%),
+        linear-gradient(145deg, #10251f, #111713 68%);
+      background-size: 42px 42px, 42px 42px, auto, auto;
+    }
+
+    .slide.blue {
+      color: #f8f4e9;
+      background:
+        radial-gradient(circle at 15% 90%, rgba(213, 174, 88, .18), transparent 30%),
+        linear-gradient(140deg, #183447, #10212c);
+    }
+
+    .topline, .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .kicker, .slide-number, .micro, .tag {
+      font-family: var(--mono);
+      font-size: clamp(.67rem, 1vw, .9rem);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .kicker { color: var(--ember); font-weight: 700; }
+    .dark .kicker, .blue .kicker { color: var(--gold); }
+    .slide-number { color: var(--muted); }
+    .dark .slide-number, .blue .slide-number { color: rgba(255,255,255,.58); }
+
+    .content {
+      align-self: center;
+      width: min(100%, 1500px);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing: -.035em;
+      line-height: .98;
+    }
+    h1 { font-size: clamp(3.6rem, 8.5vw, 9rem); max-width: 13ch; margin-bottom: .25em; }
+    h2 { font-size: clamp(2.8rem, 6vw, 6.4rem); max-width: 17ch; margin-bottom: .42em; }
+    h3 { font-size: clamp(1.15rem, 1.7vw, 1.8rem); line-height: 1.18; margin-bottom: .45em; }
+    p, li { font-size: clamp(1rem, 1.55vw, 1.62rem); line-height: 1.42; }
+    .lede { font-family: var(--serif); font-size: clamp(1.5rem, 2.7vw, 3rem); line-height: 1.22; max-width: 38ch; }
+    .big-claim { font-family: var(--serif); font-size: clamp(2.3rem, 5vw, 5.6rem); line-height: 1.05; max-width: 21ch; }
+    em { color: var(--ember); }
+    .dark em, .blue em { color: var(--gold); }
+    strong { font-weight: 750; }
+
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: clamp(14px, 1.8vw, 28px);
+      align-items: stretch;
+    }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: clamp(18px, 2.3vw, 34px);
+      background: rgba(255,255,255,.48);
+      box-shadow: 0 12px 35px rgba(34, 28, 17, .08);
+    }
+    .dark .card, .blue .card {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: none;
+    }
+    .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+    .card .tag { color: var(--ember); display: block; margin-bottom: 12px; }
+    .dark .card .tag, .blue .card .tag { color: var(--gold); }
+
+    .quote {
+      border-left: 7px solid var(--ember);
+      padding-left: clamp(20px, 3vw, 44px);
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3vw, 3.5rem);
+      line-height: 1.2;
+      max-width: 40ch;
+    }
+    .dark .quote, .blue .quote { border-left-color: var(--gold); }
+
+    .footer {
+      color: var(--muted);
+      font-size: clamp(.72rem, 1vw, .95rem);
+    }
+    .dark .footer, .blue .footer { color: rgba(255,255,255,.6); }
+    .footer a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+    .controls {
+      position: fixed;
+      right: 18px;
+      bottom: 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 20;
+      opacity: .32;
+      transition: opacity .2s;
+    }
+    .controls:hover, .controls:focus-within { opacity: 1; }
+    .control-btn, .choice, .tab, .link-btn {
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(10,18,15,.84);
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, color .18s ease;
+    }
+    .control-btn:hover, .choice:hover, .tab:hover, .link-btn:hover { transform: translateY(-2px); }
+    .choice, .tab, .link-btn {
+      color: var(--ink);
+      background: rgba(255,255,255,.72);
+      border-color: var(--line);
+      font-weight: 700;
+    }
+    .dark .choice, .dark .tab, .dark .link-btn, .blue .choice, .blue .tab, .blue .link-btn {
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.25);
+    }
+    .choice.selected, .tab.selected {
+      color: #fff;
+      background: var(--ember);
+      border-color: var(--ember);
+    }
+
+    .progress {
+      position: fixed;
+      inset: auto 0 0 0;
+      height: 5px;
+      background: rgba(255,255,255,.12);
+      z-index: 21;
+    }
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--gold);
+      transition: width .3s ease;
+    }
+
+    .resource-drawer, .notes-panel, .overview {
+      position: fixed;
+      z-index: 30;
+      background: #f8f5ed;
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity .22s ease, transform .22s ease, visibility .22s;
+    }
+    .resource-drawer {
+      top: 0;
+      right: 0;
+      width: min(520px, 94vw);
+      height: 100%;
+      padding: 34px;
+      overflow-y: auto;
+      transform: translateX(100%);
+    }
+    .resource-drawer.open { visibility: visible; opacity: 1; transform: translateX(0); }
+    .resource-drawer h2 { font-size: 3rem; }
+    .resource-link {
+      display: block;
+      margin: 12px 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      text-decoration: none;
+      background: white;
+    }
+    .resource-link strong { display: block; margin-bottom: 4px; }
+    .resource-link span { color: var(--muted); font-size: .92rem; }
+
+    .notes-panel {
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      max-height: 42vh;
+      padding: 24px 30px;
+      border-radius: 16px;
+      overflow-y: auto;
+      transform: translateY(115%);
+    }
+    .notes-panel.open { visibility: visible; opacity: 1; transform: translateY(0); }
+    .notes-panel h3 { margin-bottom: 8px; }
+    .notes-panel p { font-size: 1.05rem; line-height: 1.5; }
+
+    .overview {
+      inset: 0;
+      padding: 32px;
+      overflow: auto;
+      transform: scale(.97);
+    }
+    .overview.open { visibility: visible; opacity: 1; transform: scale(1); }
+    .overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+    .overview button {
+      text-align: left;
+      min-height: 120px;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: white;
+      cursor: pointer;
+    }
+    .overview button:hover { border-color: var(--ember); }
+    .overview button span { color: var(--ember); font-family: var(--mono); }
+    .overview button strong { display: block; margin-top: 10px; font-size: 1.08rem; }
+
+    .interaction {
+      border: 2px solid var(--line);
+      border-radius: 22px;
+      padding: clamp(20px, 2.4vw, 38px);
+      background: rgba(255,255,255,.54);
+    }
+    .dark .interaction, .blue .interaction {
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.055);
+    }
+    .choices { display: flex; gap: 12px; flex-wrap: wrap; }
+    .reveal { display: none; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .reveal.show { display: block; animation: rise .3s ease; }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .dimension-stage { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(20px, 4vw, 70px); }
+    .dimension-buttons { display: grid; gap: 12px; align-content: center; }
+    .dimension-buttons button { width: 100%; text-align: left; border-radius: 12px; }
+    .dimension-detail { min-height: 390px; display: grid; align-content: center; }
+
+    .continuum {
+      position: relative;
+      height: 24px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2f755c, var(--gold), var(--ember));
+      margin: 34px 0 14px;
+    }
+    .continuum::before, .continuum::after {
+      position: absolute;
+      top: 34px;
+      font-family: var(--mono);
+      font-size: .85rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .continuum::before { content: "builds capacity"; left: 0; }
+    .continuum::after { content: "restricts access"; right: 0; }
+
+    textarea {
+      width: 100%;
+      min-height: 125px;
+      padding: 16px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.75);
+      color: var(--ink);
+      resize: vertical;
+    }
+
+    .pulse-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    .pulse {
+      position: relative;
+      min-height: 170px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      color: white;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .pulse span { position: relative; z-index: 2; font-weight: 750; font-size: 1.3rem; }
+    .pulse::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: var(--vote-height, 0%);
+      background: rgba(213,174,88,.55);
+      transition: height .35s ease;
+    }
+
+    .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 32px; }
+    .timeline .step {
+      border: 0;
+      border-top: 5px solid var(--moss);
+      padding: 16px 8px 8px 0;
+      color: inherit;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .timeline .step:hover, .timeline .step.selected { transform: translateY(-4px); border-color: var(--ember); }
+    .timeline .step:last-child { border-color: var(--ember); }
+    .timeline p { font-size: clamp(.82rem, 1.2vw, 1.18rem); }
+    .explorer-detail {
+      margin-top: 22px;
+      padding: 18px 22px;
+      border-left: 6px solid var(--ember);
+      background: rgba(255,255,255,.55);
+      border-radius: 0 14px 14px 0;
+    }
+    .dark .explorer-detail, .blue .explorer-detail {
+      background: rgba(255,255,255,.07);
+      border-left-color: var(--gold);
+    }
+    .explorer-detail h3 { margin-bottom: 6px; }
+    .explorer-detail p { margin-bottom: 0; font-size: clamp(.9rem, 1.3vw, 1.3rem); }
+
+    .lens-card, .system-node, .practice-card, .route-card {
+      width: 100%;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .lens-card.selected, .system-node.selected, .practice-card.selected, .route-card.selected {
+      border-color: var(--ember);
+      box-shadow: 0 0 0 3px rgba(184,79,50,.18), 0 12px 35px rgba(34,28,17,.08);
+    }
+    .dark .lens-card.selected, .dark .system-node.selected, .dark .practice-card.selected,
+    .blue .lens-card.selected, .blue .route-card.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(213,174,88,.22);
+    }
+    .lens-card p, .system-node p, .practice-card p, .route-card p { font-size: clamp(.88rem, 1.18vw, 1.22rem); }
+
+    .builder-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; align-items: start; }
+    .builder-row { margin-bottom: 14px; }
+    .builder-row .micro { display: block; margin-bottom: 7px; color: var(--ember); }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 7px; }
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 11px;
+      color: var(--ink);
+      background: rgba(255,255,255,.72);
+      cursor: pointer;
+      font-size: clamp(.75rem, 1vw, .95rem);
+      font-weight: 700;
+    }
+    .pill.selected { background: var(--ember); border-color: var(--ember); color: white; }
+    .praxis-output { min-height: 260px; display: grid; align-content: center; }
+    .praxis-output p { font-family: var(--serif); font-size: clamp(1.3rem, 2.2vw, 2.5rem); line-height: 1.25; }
+    .copy-status { min-height: 1.2em; margin: 9px 0 0; color: var(--muted); font-size: .85rem; }
+
+    .route-detail { margin-top: 20px; }
+
+    .path-content { display: none; }
+    .path-content.show { display: block; animation: rise .3s ease; }
+    .citation { color: var(--muted); font-size: clamp(.78rem, 1vw, 1rem); }
+    .dark .citation, .blue .citation { color: rgba(255,255,255,.6); }
+    .slide.compact { gap: clamp(10px, 1.3vh, 18px); padding-top: clamp(22px, 3vw, 48px); padding-bottom: clamp(22px, 3vw, 44px); }
+    .slide.compact h2 { font-size: clamp(2.4rem, 5vw, 5.2rem); margin-bottom: .28em; }
+    .slide.compact .lede { font-size: clamp(1.25rem, 2.2vw, 2.4rem); }
+    .slide.compact .big-claim { font-size: clamp(1.9rem, 4vw, 4.4rem); }
+    .slide.compact .card { padding: clamp(14px, 1.7vw, 25px); }
+    .slide.compact .timeline { margin-top: 18px; }
+    .slide.compact .timeline p { line-height: 1.28; margin-bottom: 0; }
+
+    .link-cloud { display: flex; gap: 13px; flex-wrap: wrap; }
+    .link-cloud a { text-decoration: none; }
+    .link-cloud .link-btn { display: inline-flex; align-items: center; gap: 8px; }
+
+    .speaker-notes { display: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    @media (max-width: 900px) {
+      .slide { padding: 28px 24px 48px; }
+      .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dimension-stage, .grid-2 { grid-template-columns: 1fr; }
+      .dimension-buttons { grid-template-columns: repeat(2, 1fr); }
+      .dimension-detail { min-height: 250px; }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline .step { border-top: 0; border-left: 5px solid var(--moss); padding: 4px 0 4px 14px; }
+      .builder-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      h1 { font-size: clamp(3rem, 16vw, 5rem); }
+      h2 { font-size: clamp(2.35rem, 12vw, 4rem); }
+      .grid-3, .grid-4, .pulse-row { grid-template-columns: 1fr; }
+      .controls .optional { display: none; }
+      .topline { align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      html, body { overflow: visible; height: auto; background: white; }
+      .deck { width: auto; height: auto; }
+      .slide {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        break-after: page;
+        page-break-after: always;
+        overflow: hidden;
+      }
+      .controls, .progress, .resource-drawer, .notes-panel, .overview { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck" aria-live="polite">
+    <section class="slide dark active" data-title="Pedagogical Friction as Subversive Praxis">
+      <div class="topline"><span class="kicker">AAACS 2026 · Online Conference</span><span class="slide-number"></span></div>
+      <div class="content">
+        <p class="micro">Curriculum, enclosure, and the refusal of frictionless learning</p>
+        <h1>Pedagogical Friction as <em>Subversive Praxis</em></h1>
+        <p class="lede">What if the most consequential curriculum decision in the age of generative AI is deciding which difficulties must not disappear?</p>
+        <p>Micah J. Miner · National Louis University · <a href="https://micahminer.com/" target="_blank" rel="noopener">micahminer.com</a></p>
+      </div>
+      <div class="footer"><span>Use ← → or space to move · R resources · N notes · O overview</span><span>American Association for the Advancement of Curriculum Studies</span></div>
+      <aside class="speaker-notes">Open with the learning problem, not the technology. Frame the session as a complicated conversation and invite participants to use chat throughout. Name that the interactive deck stores no participant data and that all activities can be answered verbally or in chat.</aside>
+    </section>
+
+    <section class="slide" data-title="The Hour as a Complicated Conversation">
+      <div class="topline"><span class="kicker">Orientation</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>The hour as a <em>complicated conversation</em></h2>
+        <div class="grid-4">
+          <article class="card"><span class="tag">0–12 min</span><h3>Recognize</h3><p>When polished output conceals diminished learning.</p></article>
+          <article class="card"><span class="tag">12–28 min</span><h3>Theorize</h3><p>Ong, learning science, and the curricular stakes of friction.</p></article>
+          <article class="card"><span class="tag">28–44 min</span><h3>Complicate</h3><p>Access, exclusion, curriculum studies, and uneven enclosure.</p></article>
+          <article class="card"><span class="tag">44–60 min</span><h3>Act</h3><p>Subversive practices, research, and institutional redesign.</p></article>
+        </div>
+      </div>
+      <div class="footer"><span>Participation is part of the argument.</span><span>Press R anytime for sources and companion sites.</span></div>
+      <aside class="speaker-notes">Explain that interactivity is not decorative. A talk arguing for dialogic, rhetorical, and existential participation should not treat the audience as passive recipients.</aside>
+    </section>
+
+    <section class="slide compact" data-title="When Output Looks Like Learning">
+      <div class="topline"><span class="kicker">Movement I · Recognize</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>When the output <em>looks like learning</em></h2>
+        <div class="interaction">
+          <h3>Choose the classroom signal that most concerns you.</h3>
+          <div class="choices" data-reveal-group="output">
+            <button class="choice" data-reveal="essay">The essay is stronger than the conference</button>
+            <button class="choice" data-reveal="lab">The lab report is cleaner than the reasoning</button>
+            <button class="choice" data-reveal="sources">The citations are better than the source judgment</button>
+          </div>
+          <div class="reveal" id="essay"><p><strong>Rhetorical saturation:</strong> fluent prose performs conviction the learner may never have formed.</p></div>
+          <div class="reveal" id="lab"><p><strong>Noetic displacement:</strong> structure and conclusions arrive without the interpretive labor that makes them usable later.</p></div>
+          <div class="reveal" id="sources"><p><strong>Unproductive success:</strong> formal criteria are met while the ability to explain, defend, or extend remains weak.</p></div>
+        </div>
+        <p class="big-claim" style="margin-top:30px;">This is not primarily a problem of academic integrity. It is a problem of <em>learning</em> and of curriculum.</p>
+      </div>
+      <div class="footer"><span>Chat prompt: What evidence tells you learning occurred?</span><span>Miner, ESR 616 mixed methods project</span></div>
+      <aside class="speaker-notes">Allow 45 seconds for a choice and chat response. Ask: What would you need to see beyond the artifact? Draw attention to explanation, transfer, defense, and ownership.</aside>
+    </section>
+
+    <section class="slide blue" data-title="A Live Audience Pulse">
+      <div class="topline"><span class="kicker">Audience pulse</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Where is the most consequential curricular decision being made?</h2>
+        <p class="lede">Choose once. This tally stays only in your browser.</p>
+        <div class="pulse-row" id="pulseRow">
+          <button class="pulse" data-vote="0"><span>In the assignment</span></button>
+          <button class="pulse" data-vote="1"><span>In the interface</span></button>
+          <button class="pulse" data-vote="2"><span>In institutional policy</span></button>
+        </div>
+      </div>
+      <div class="footer"><span>Then ask: who had the authority to make that decision?</span><span>Local tally · no data transmitted</span></div>
+      <aside class="speaker-notes">Use the vote to surface the core claim: curriculum is distributed across formal instruction, product design, procurement, policy, and default settings. None of the answers is sufficient alone.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Algorithmic Enclosure">
+      <div class="topline"><span class="kicker">The conference call</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Algorithmic enclosure is <em>curricular enclosure</em></h2>
+        <p class="quote">When institutions do not deliberate about the conditions of learning, vendor defaults become de facto curriculum policy.</p>
+        <div class="grid-3" style="margin-top:38px;">
+          <article class="card"><span class="tag">Enclosure of process</span><p>The invisible substitution of generated completion for study.</p></article>
+          <article class="card"><span class="tag">Enclosure of language</span><p>The narrowing of expression toward statistically available fluency.</p></article>
+          <article class="card"><span class="tag">Enclosure of judgment</span><p>The relocation of curricular decisions into platforms and systems.</p></article>
+        </div>
+      </div>
+      <div class="footer"><span>Subversion begins by making the enclosure visible.</span><a href="http://www.aaacs.org/conferences.html" target="_blank" rel="noopener">AAACS conference context</a></div>
+      <aside class="speaker-notes">Connect directly to the AAACS call around enclosure, extraction, and everyday acts of subversion. Explain that friction is not nostalgia for difficulty; it is a way to identify which human capacities are being enclosed.</aside>
+    </section>
+
+    <section class="slide" data-title="The Field Is Reporting">
+      <div class="topline"><span class="kicker">Evidence landscape</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Adoption is scaling faster than <em>sense-making</em></h2>
+        <div class="grid-3">
+          <article class="card"><span class="tag">18% → 53%</span><h3>Teacher AI use accelerated</h3><p>National reports show rapid growth within a short policy window.</p></article>
+          <article class="card"><span class="tag">35%</span><h3>Student training remains limited</h3><p>Institutional scaffolding has not kept pace with tool availability.</p></article>
+          <article class="card"><span class="tag">18%</span><h3>Principals report AI policy</h3><p>Silence leaves teachers and learners to navigate defaults alone.</p></article>
+        </div>
+        <p class="lede" style="margin-top:34px;">Teachers are not only worried about honesty. They are worried about <em>student cognition</em>.</p>
+      </div>
+      <div class="footer"><span>RAND reports · TeachAI · An &amp; Shadarra · Bacalja et al.</span><span>Full source links in Resources</span></div>
+      <aside class="speaker-notes">Keep the claims bounded: these figures come from different national reports and represent a directional landscape, not a single longitudinal sample. The key pattern is adoption outpacing guidance and professional learning.</aside>
+    </section>
+
+    <section class="slide compact" data-title="Ong and Tertiary Algorithmicity">
+      <div class="topline"><span class="kicker">Movement II · Theorize</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Ong helps us ask what the medium does to <em>knowing</em></h2>
+        <div class="timeline" id="ongTimeline">
+          <button class="step selected" data-stage="orality"><h3>Primary orality</h3><p>Knowledge is communal, embodied, and held in memory.</p></button>
+          <button class="step" data-stage="literacy"><h3>Literacy</h3><p>The word becomes inspectable, abstracted, and durable.</p></button>
+          <button class="step" data-stage="secondary"><h3>Secondary orality</h3><p>Electronic media restore participatory presence through literate systems.</p></button>
+          <button class="step" data-stage="algorithmic"><h3>Algorithmic secondary orality</h3><p>Platforms curate the symbolic field and its circulation.</p></button>
+          <button class="step" data-stage="tertiary"><h3>Tertiary algorithmicity</h3><p>Systems generate symbolic content at scale, before human thought begins.</p></button>
+        </div>
+        <article class="explorer-detail" id="ongDetail" aria-live="polite"></article>
+      </div>
+      <div class="footer"><span>Ong (1982/2002) extended through the qualifying paper</span><a href="https://minerclass.github.io/dissertationquestionsbeta/tertiary-algorithmicity-companion/" target="_blank" rel="noopener">Open visual companion</a></div>
+      <aside class="speaker-notes">This is the reviewer-one hinge. Do not present Ong as a decorative historical reference. Use him to relocate the cognitive-science question into a media ecology and curriculum question: what kinds of consciousness and social relations does the medium privilege?</aside>
+    </section>
+
+    <section class="slide dark compact" data-title="Holding the Tension">
+      <div class="topline"><span class="kicker">Reviewer 1 · The intellectual hinge</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>This paper makes two traditions <em>answer each other</em></h2>
+        <div class="grid-3" id="tensionLenses">
+          <button class="card lens-card selected" data-lens="mechanism">
+            <span class="tag">Learning sciences</span>
+            <h3>Struggle can be a mechanism of durable learning.</h3>
+            <p>Desirable difficulties, retrieval, generation, productive failure, and preparation for future learning.</p>
+          </button>
+          <button class="card lens-card" data-lens="meaning">
+            <span class="tag">Curriculum studies</span>
+            <h3>Learning cannot be reduced to cognitive efficiency.</h3>
+            <p>Study is autobiographical, relational, political, historical, ethical, and shaped by institutional power.</p>
+          </button>
+          <button class="card lens-card" data-lens="medium">
+            <span class="tag">Ong as hinge</span>
+            <h3>The medium restructures the conditions of knowing.</h3>
+            <p>Media ecology connects cognitive mechanism to historical, social, and curricular environments.</p>
+          </button>
+        </div>
+        <article class="explorer-detail" id="tensionDetail" aria-live="polite"></article>
+      </div>
+      <div class="footer"><span>Bjork &amp; Bjork · Kapur · Ong · Pinar</span><span>The tension is productive, not resolved away.</span></div>
+      <aside class="speaker-notes">State the tension plainly. Cognitive science can help explain why effort matters but can psychologize curriculum. Curriculum theory can resist reduction but sometimes lacks a mechanism-level account of why specific forms of struggle matter. Pedagogical friction needs both and must remain accountable to both.</aside>
+    </section>
+
+    <section class="slide" data-title="Four Dimensions of Pedagogical Friction">
+      <div class="topline"><span class="kicker">Interactive framework</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Four dimensions of <em>pedagogical friction</em></h2>
+        <div class="dimension-stage">
+          <div class="dimension-buttons" id="dimensionButtons">
+            <button class="choice selected" data-dimension="noetic">Noetic · the head</button>
+            <button class="choice" data-dimension="rhetorical">Rhetorical · the room</button>
+            <button class="choice" data-dimension="existential">Existential · the world</button>
+            <button class="choice" data-dimension="infrastructural">Infrastructural · the system</button>
+          </div>
+          <article class="card dimension-detail" id="dimensionDetail" aria-live="polite"></article>
+        </div>
+      </div>
+      <div class="footer"><span>Click a dimension · ask what disappears when it is bypassed</span><a href="https://minerclass.github.io/genAI-ML-pedagogy-of-friction-site/" target="_blank" rel="noopener">Pedagogical Friction companion</a></div>
+      <aside class="speaker-notes">Invite the audience to select the dimension they think is most neglected in current AI policy. In the discussion, emphasize that infrastructural friction is now treated as the institutional condition enabling or constraining the learner-facing dimensions.</aside>
+    </section>
+
+    <section class="slide" data-title="The Friction Test">
+      <div class="topline"><span class="kicker">The crucial guardrail</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Friction is not automatically <em>good</em></h2>
+        <p class="lede">The same tool, in the same classroom, can expand access and bypass learning.</p>
+        <div class="continuum"></div>
+        <div class="grid-2" style="margin-top:60px;">
+          <article class="card"><span class="tag">Productive friction</span><p>Difficulty that builds capacity the learner would otherwise not construct.</p></article>
+          <article class="card"><span class="tag">Exclusionary friction</span><p>Difficulty that restricts access, participation, or demonstration without educational benefit.</p></article>
+        </div>
+        <p class="quote" style="margin-top:30px;">For whom does this difficulty build capacity, and for whom does it restrict access?</p>
+      </div>
+      <div class="footer"><span>The framework requires judgment, not a universal rule.</span><span>DisCrit and disability-studies critique remain essential.</span></div>
+      <aside class="speaker-notes">This slide prevents a romantic defense of struggle. Name that friction-preserving pedagogy can reproduce ableism, linguistic exclusion, and institutional harm. The framework is useful only if the productive/exclusionary distinction remains central.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Friction Lab">
+      <div class="topline"><span class="kicker">Audience activity · 5 minutes</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>The <em>friction lab</em></h2>
+        <div class="interaction">
+          <h3>Case: A multilingual learner drafts an argument in their home language, uses AI translation, then defends and revises the English version in conference.</h3>
+          <p>How would you classify the AI-supported translation?</p>
+          <div class="choices" data-reveal-group="lab">
+            <button class="choice" data-reveal="lab-productive">Mostly productive</button>
+            <button class="choice" data-reveal="lab-exclusionary">Mostly exclusionary</button>
+            <button class="choice" data-reveal="lab-both">Both · context decides</button>
+          </div>
+          <div class="reveal" id="lab-productive"><p>The translation may enable participation and make disciplinary thinking visible. Ask what capacity the learner is now able to demonstrate.</p></div>
+          <div class="reveal" id="lab-exclusionary"><p>If target-language composition is itself the learning goal, translation may bypass productive language-building struggle. Ask what the assignment is for.</p></div>
+          <div class="reveal" id="lab-both"><p><strong>This is the framework’s intended answer:</strong> preserve the relevant learning work while reducing barriers unrelated to the curricular purpose.</p></div>
+        </div>
+        <p class="micro" style="margin-top:22px;">Chat: What one additional fact would you need before deciding?</p>
+      </div>
+      <div class="footer"><span>Subversion refuses the false choice between access and thinking.</span><span>Use chat, breakout pair, or unmute.</span></div>
+      <aside class="speaker-notes">Give participants 90 seconds to choose and identify the missing contextual fact. Listen for learning goal, learner profile, prior instruction, available scaffolds, and what the learner must later do independently.</aside>
+    </section>
+
+    <section class="slide" data-title="Pathways to Curriculum Studies">
+      <div class="topline"><span class="kicker">Reviewer 2 · Stronger conceptual pathways</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Pedagogical friction is already a <em>curriculum studies</em> question</h2>
+        <div class="choices" id="pathTabs">
+          <button class="tab selected" data-path="currere">Currere</button>
+          <button class="tab" data-path="languages">Languages of curriculum</button>
+          <button class="tab" data-path="hidden">Hidden curriculum</button>
+          <button class="tab" data-path="fugitive">Fugitivity</button>
+        </div>
+        <div class="interaction" style="margin-top:24px; min-height:300px;">
+          <article class="path-content show" id="currere"><h3>Currere and the complicated conversation</h3><p>If education concerns how subjects understand their experience across past, present, and future, then existential friction protects the learner’s presence in the act of study.</p><p class="citation">Pathway: Pinar and the autobiographical study of educational experience.</p></article>
+          <article class="path-content" id="languages"><h3>The languages of curriculum</h3><p>Technical language asks whether AI makes learning efficient. Political, ethical, and aesthetic languages ask who gains, who is shaped, what is valued, and what kind of world is being made.</p><p class="citation">Pathway: Huebner’s critique of technical rationality.</p></article>
+          <article class="path-content" id="hidden"><h3>The hidden curriculum of frictionlessness</h3><p>A platform that makes completion effortless teaches that knowledge is instantly available, language is interchangeable, and polished performance is equivalent to understanding.</p><p class="citation">Pathway: Apple and the politics embedded in ordinary educational arrangements.</p></article>
+          <article class="path-content" id="fugitive"><h3>Fugitivity and subversive praxis</h3><p>Friction-preserving practices can refuse enclosure by keeping study dialogic, relational, unfinished, and answerable to communities rather than platform metrics.</p><p class="citation">Pathway: Moten and Harney; Givens; the conference theme of subversion.</p></article>
+        </div>
+      </div>
+      <div class="footer"><span>The pathway is not “AI applied to curriculum.”</span><span>It is curriculum theory confronting a new symbolic environment.</span></div>
+      <aside class="speaker-notes">This is the direct response to Reviewer 2. Avoid name-checking. Explain what each pathway changes about the argument. The curriculum-studies contribution is the relocation of AI from tool-choice discourse into questions of subject formation, authority, hidden curriculum, and refusal.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Subversion Is Not Refusal of Technology">
+      <div class="topline"><span class="kicker">Clarification</span><span class="slide-number"></span></div>
+      <div class="content">
+        <p class="big-claim">Subversion is not the refusal of technology. It is the refusal to let <em>efficiency become the unquestioned purpose of education</em>.</p>
+        <div class="grid-3" style="margin-top:44px;">
+          <article class="card"><h3>Slow down</h3><p>Make room for deliberation before adoption becomes destiny.</p></article>
+          <article class="card"><h3>Make visible</h3><p>Require learners and institutions to account for process and judgment.</p></article>
+          <article class="card"><h3>Redistribute authority</h3><p>Return curricular decisions from platforms to educators, learners, and communities.</p></article>
+        </div>
+      </div>
+      <div class="footer"><span>Technoskepticism asks what is lost as well as gained.</span><a href="https://micahminer.com/" target="_blank" rel="noopener">Practitioner-scholar context</a></div>
+      <aside class="speaker-notes">Connect the argument to your practitioner position. You are not arguing against useful AI assistance. You are arguing for human authority over the conditions and purposes of learning.</aside>
+    </section>
+
+    <section class="slide blue" data-title="Enclosure Is Unevenly Distributed">
+      <div class="topline"><span class="kicker">Movement III · Complicate</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Enclosure is <em>unevenly distributed</em></h2>
+        <div class="grid-3">
+          <article class="card"><span class="tag">Hardware access</span><h3>Near parity</h3><p>The device gap has narrowed in many contexts.</p></article>
+          <article class="card"><span class="tag">AI literacy</span><h3>Uneven sense-making</h3><p>Students do not receive equal support for judging and using AI.</p></article>
+          <article class="card"><span class="tag">Written policy</span><h3>Uneven deliberation</h3><p>Some communities receive tools without the institutional capacity to govern them.</p></article>
+        </div>
+        <p class="quote" style="margin-top:38px;">The tools arrived everywhere. The deliberative scaffolding did not.</p>
+      </div>
+      <div class="footer"><span>NCES School Pulse Panel pilot analysis · interpret cautiously</span><span>Equity is infrastructural, not only individual.</span></div>
+      <aside class="speaker-notes">Avoid overclaiming from pilot and secondary data. Use the pattern to argue that access discourse must include access to deliberation, literacy, professional learning, and meaningful policy, not only devices or accounts.</aside>
+    </section>
+
+    <section class="slide" data-title="Curriculum Is Distributed">
+      <div class="topline"><span class="kicker">The expanded curriculum</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Curriculum now lives across a <em>distributed system</em></h2>
+        <div class="grid-4" id="systemMap">
+          <button class="card system-node selected" data-system="classroom"><span class="tag">Classroom</span><p>Tasks, dialogue, assessment, relationships, and teacher judgment.</p></button>
+          <button class="card system-node" data-system="institution"><span class="tag">Institution</span><p>Policy, professional learning, procurement, schedules, and leadership.</p></button>
+          <button class="card system-node" data-system="platform"><span class="tag">Platform</span><p>Interface defaults, model behavior, metrics, permissions, and data flows.</p></button>
+          <button class="card system-node" data-system="economy"><span class="tag">Political economy</span><p>Extraction, scale, labor, ownership, and the definition of innovation.</p></button>
+        </div>
+        <article class="explorer-detail" id="systemDetail" aria-live="polite"></article>
+      </div>
+      <div class="footer"><span>Question: Where can educators still interrupt the default?</span><span>Curriculum, advocacy, and policy</span></div>
+      <aside class="speaker-notes">This is an important bridge from classroom practice to AAACS. Emphasize that the educational environment is co-authored by systems beyond the teacher, and therefore subversive praxis cannot be assigned only to individual teachers.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Everyday Acts of Subversion">
+      <div class="topline"><span class="kicker">Movement IV · Act</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>What everyday acts of subversion already <em>exist</em>?</h2>
+        <div class="grid-3" id="practiceExplorer">
+          <button class="card practice-card selected" data-practice="before"><span class="tag">Before AI</span><h3>Predict, attempt, retrieve</h3><p>Require initial thinking before consultation or generation.</p></button>
+          <button class="card practice-card" data-practice="with"><span class="tag">With AI</span><h3>Interrogate, compare, revise</h3><p>Make judgment and transformation the assessed work.</p></button>
+          <button class="card practice-card" data-practice="after"><span class="tag">After AI</span><h3>Defend, transfer, own</h3><p>Ask learners to explain decisions and apply ideas in new conditions.</p></button>
+          <button class="card practice-card" data-practice="room"><span class="tag">In the room</span><h3>Restore answerability</h3><p>Use conferences, peer response, public audiences, and dialogue.</p></button>
+          <button class="card practice-card" data-practice="institution"><span class="tag">In the institution</span><h3>Write down learning values</h3><p>Build policy around cognition, access, privacy, and accountability.</p></button>
+          <button class="card practice-card" data-practice="metric"><span class="tag">Against the metric</span><h3>Value process</h3><p>Refuse to treat polished completion as the only visible success.</p></button>
+        </div>
+        <article class="explorer-detail" id="practiceDetail" aria-live="polite"></article>
+      </div>
+      <div class="footer"><span>The framework names and defends practices educators already create.</span><span>Subversion can be ordinary, collective, and designed.</span></div>
+      <aside class="speaker-notes">Invite participants to add an example in chat. Name these practices as subversive because they interrupt the default logic of optimization and restore human interpretive labor, not because they are spectacular or oppositional for its own sake.</aside>
+    </section>
+
+    <section class="slide compact" data-title="Build a Subversive Move">
+      <div class="topline"><span class="kicker">Audience design activity · 5 minutes</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Design one <em>friction-preserving move</em></h2>
+        <div class="builder-grid">
+          <div class="card" id="praxisBuilder">
+            <div class="builder-row" data-builder-key="preserve"><span class="micro">Preserve or redesign</span><div class="pill-group"><button class="pill selected" data-value="interpretive struggle">interpretive struggle</button><button class="pill" data-value="student voice">student voice</button><button class="pill" data-value="authorship">authorship</button><button class="pill" data-value="institutional deliberation">institutional deliberation</button></div></div>
+            <div class="builder-row" data-builder-key="capacity"><span class="micro">Because it helps learners</span><div class="pill-group"><button class="pill selected" data-value="explain their reasoning">explain reasoning</button><button class="pill" data-value="defend a position">defend a position</button><button class="pill" data-value="transfer understanding">transfer understanding</button><button class="pill" data-value="make consequential decisions">make decisions</button></div></div>
+            <div class="builder-row" data-builder-key="remove"><span class="micro">While removing</span><div class="pill-group"><button class="pill selected" data-value="language barriers unrelated to the goal">unrelated language barriers</button><button class="pill" data-value="confusing directions">confusing directions</button><button class="pill" data-value="unequal tool access">unequal tool access</button><button class="pill" data-value="needless repetition">needless repetition</button></div></div>
+            <div class="builder-row" data-builder-key="restrict"><span class="micro">Because it restricts</span><div class="pill-group"><button class="pill selected" data-value="participation">participation</button><button class="pill" data-value="demonstration of learning">demonstration</button><button class="pill" data-value="access">access</button><button class="pill" data-value="belonging">belonging</button></div></div>
+          </div>
+          <div class="card praxis-output">
+            <span class="tag">Your situated move</span>
+            <p id="praxisOutput"></p>
+            <button class="choice" id="copyPraxis">Copy for chat</button>
+            <p class="copy-status" id="copyStatus" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>Move from critique to a situated curricular decision.</span><span>No participant information leaves the browser.</span></div>
+      <aside class="speaker-notes">Allow two minutes to write and two minutes to share. Ask participants to identify both the capacity being protected and the exclusionary barrier being removed. This keeps the activity from becoming a generic “use AI responsibly” prompt.</aside>
+    </section>
+
+    <section class="slide" data-title="Testing the Framework Against Practice">
+      <div class="topline"><span class="kicker">The empirical study</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>The framework’s utility is an <em>empirical question</em></h2>
+        <div class="grid-3">
+          <article class="card"><span class="tag">RQ1 · Classroom</span><p>How do K–12 educators understand and navigate friction-reducing affordances?</p></article>
+          <article class="card"><span class="tag">RQ2 · Institution</span><p>What conditions enable or constrain friction-preserving pedagogy?</p></article>
+          <article class="card"><span class="tag">RQ3 · Governance</span><p>How can educator and institutional sense-making inform AI governance, assessment, and design?</p></article>
+        </div>
+        <p class="lede" style="margin-top:34px;">A qualitative-dominant mixed methods case study will test, complicate, revise, or reject parts of the framework.</p>
+      </div>
+      <div class="footer"><span>QUAL + quan · collective instrumental case study</span><a href="https://docs.google.com/document/d/1C93jyzKwEEJzwKWF0rh0b0r2sTg-R8KmLIvCjLT7NAQ/edit?usp=sharing" target="_blank" rel="noopener">Mixed methods source document</a></div>
+      <aside class="speaker-notes">Keep the research portion concise for this audience. Emphasize that the dissertation is designed to prevent the concept from becoming a closed theoretical system. Negative cases and divergence are findings.</aside>
+    </section>
+
+    <section class="slide blue" data-title="The Research Ecology">
+      <div class="topline"><span class="kicker">Public scholarship</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>A research ecology, not a <em>file cabinet</em></h2>
+        <div class="grid-3" id="routeExplorer">
+          <button class="card route-card selected" data-route="theory"><h3>I want the theory</h3><p>Explore Ong, tertiary algorithmicity, and pedagogical friction.</p></button>
+          <button class="card route-card" data-route="research"><h3>I want the study</h3><p>Connect questions, participants, data sources, and mixed methods integration.</p></button>
+          <button class="card route-card" data-route="practice"><h3>I want usable practice</h3><p>Move toward practitioner writing, policy tools, and community return.</p></button>
+        </div>
+        <article class="explorer-detail route-detail" id="routeDetail" aria-live="polite"></article>
+        <div class="link-cloud" style="margin-top:32px;">
+          <a class="link-btn" href="https://minerclass.github.io/dissertationquestionsbeta/dissertation-sites/" target="_blank" rel="noopener">Dissertation Sites Dashboard ↗</a>
+          <a class="link-btn" href="https://minerclass.github.io/writing-sites-hub/" target="_blank" rel="noopener">Writing Sites Hub ↗</a>
+          <a class="link-btn" href="https://drive.google.com/drive/folders/1WoyIiSeVPePqtSS9uIWYB-SMuslwgZA1?usp=drive_link" target="_blank" rel="noopener">Research Drive Folder ↗</a>
+        </div>
+      </div>
+      <div class="footer"><span>Public explanatory resources remain separate from private research data.</span><span>Press R for the complete link set.</span></div>
+      <aside class="speaker-notes">Show how the interactive presentation itself belongs to the public-scholarship ecology. Mention the privacy boundary: public sites explain and route; they do not store participant data.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Positionality">
+      <div class="topline"><span class="kicker">Positionality and accountability</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>The framework was observed before it was <em>theorized</em></h2>
+        <div class="grid-2">
+          <article class="card"><span class="tag">Practitioner-scholar vantage</span><p>I direct technology and AI policy across five K–12 schools. I encounter the promise, constraints, privacy risks, budgets, and classroom consequences from inside the system.</p></article>
+          <article class="card"><span class="tag">Bias to manage</span><p>I am predisposed to hear cognitive bypass more readily than cognitive extension. Negative case analysis, member checking, reflexive memoing, and evidence divergence make that disposition visible.</p></article>
+        </div>
+        <p class="quote" style="margin-top:36px;">Technoskepticism is not opposition to technology. It is an insistence that technological change remain answerable to human purposes.</p>
+      </div>
+      <div class="footer"><span>Primary data will be collected outside the researcher’s district.</span><a href="https://micahminer.com/" target="_blank" rel="noopener">About the practitioner-scholar context</a></div>
+      <aside class="speaker-notes">AAACS audiences will rightly ask where you stand in relation to the problem. Name both the access to practice your role provides and the power and interpretive risks it creates.</aside>
+    </section>
+
+    <section class="slide compact" data-title="What This Offers Curriculum Studies">
+      <div class="topline"><span class="kicker">Contribution</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>What pedagogical friction offers <em>curriculum studies</em></h2>
+        <div class="grid-3">
+          <article class="card"><span class="tag">A diagnostic vocabulary</span><p>Names what disappears when cognition, rhetoric, ownership, and institutional deliberation are bypassed.</p></article>
+          <article class="card"><span class="tag">A curricular warrant</span><p>Explains why some forms of difficulty deserve protection while others require removal or redesign.</p></article>
+          <article class="card"><span class="tag">A praxis of interruption</span><p>Connects everyday classroom practices to institutional design and resistance to enclosure.</p></article>
+        </div>
+        <p class="big-claim" style="margin-top:22px;">If curriculum is the conversation a generation has with itself about what is worth knowing, friction keeps that conversation from being <em>auto-completed</em>.</p>
+      </div>
+      <div class="footer"><span>Media ecology · learning science · curriculum theory</span><span>A bridge that must remain open to critique.</span></div>
+      <aside class="speaker-notes">Answer the reviewers directly in the oral transition: the paper’s contribution is not simply adding curriculum scholars to a learning-science framework. It treats the conditions of cognitive labor as a curricular, political, and ethical matter.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Discussion">
+      <div class="topline"><span class="kicker">Discussion</span><span class="slide-number"></span></div>
+      <div class="content">
+        <h2>Three questions to keep the conversation <em>unfinished</em></h2>
+        <div class="grid-3">
+          <article class="card"><span class="tag">Theory</span><p>Where does pedagogical friction still risk psychologizing curriculum?</p></article>
+          <article class="card"><span class="tag">Equity</span><p>How can educators preserve productive struggle without preserving exclusion?</p></article>
+          <article class="card"><span class="tag">Praxis</span><p>What collective acts can interrupt algorithmic enclosure beyond the classroom?</p></article>
+        </div>
+      </div>
+      <div class="footer"><span>Critique is an invitation to strengthen the framework.</span><span>Press R to open linked sources and companions.</span></div>
+      <aside class="speaker-notes">Let the audience choose the question. Treat critique as part of the framework’s development, especially around curriculum theory, disability studies, racialized and linguistic inequity, political economy, and the danger of locating resistance primarily in individual practice.</aside>
+    </section>
+
+    <section class="slide dark" data-title="Closing">
+      <div class="topline"><span class="kicker">Closing claim</span><span class="slide-number"></span></div>
+      <div class="content">
+        <p class="big-claim">The world is not silent, and neither is the classroom.</p>
+        <h2 style="max-width:20ch;">The work of curriculum is to keep learners in consequential conversation with <em>ideas, others, themselves, and the systems shaping them</em>.</h2>
+        <div class="link-cloud">
+          <a class="link-btn" href="https://micahminer.com/" target="_blank" rel="noopener">micahminer.com ↗</a>
+          <a class="link-btn" href="https://minerclass.github.io/dissertationquestionsbeta/dissertation-sites/" target="_blank" rel="noopener">Dissertation ecosystem ↗</a>
+          <button class="link-btn" data-open-resources>All resources</button>
+        </div>
+      </div>
+      <div class="footer"><span>Micah J. Miner · AAACS 2026</span><span>Thank you.</span></div>
+      <aside class="speaker-notes">Close by returning to conversation rather than difficulty. Friction matters because learning is relational and answerable. Thank the reviewers explicitly for pushing the curriculum-studies and Ong/cognitive-science pathways.</aside>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Presentation controls">
+    <button class="control-btn" id="prevBtn" aria-label="Previous slide">←</button>
+    <button class="control-btn" id="nextBtn" aria-label="Next slide">→</button>
+    <button class="control-btn optional" id="overviewBtn" aria-label="Open slide overview">O</button>
+    <button class="control-btn optional" id="notesBtn" aria-label="Toggle speaker notes">N</button>
+    <button class="control-btn" id="resourcesBtn" aria-label="Open resources">R</button>
+  </nav>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <aside class="resource-drawer" id="resourceDrawer" aria-label="Presentation resources" aria-hidden="true">
+    <button class="choice" id="closeResources">Close resources</button>
+    <h2>Sources &amp; pathways</h2>
+    <p>Use these links during or after the session. Public resources are separated from private research data.</p>
+    <a class="resource-link" href="http://www.aaacs.org/conferences.html" target="_blank" rel="noopener"><strong>AAACS Conferences</strong><span>Conference context and program information</span></a>
+    <a class="resource-link" href="https://micahminer.com/" target="_blank" rel="noopener"><strong>MicahMiner.com</strong><span>Practitioner-scholar profile, publications, and public work</span></a>
+    <a class="resource-link" href="https://drive.google.com/drive/folders/1WoyIiSeVPePqtSS9uIWYB-SMuslwgZA1?usp=drive_link" target="_blank" rel="noopener"><strong>Research Drive Folder</strong><span>Source readings and research materials shared for this presentation</span></a>
+    <a class="resource-link" href="https://docs.google.com/document/d/1C93jyzKwEEJzwKWF0rh0b0r2sTg-R8KmLIvCjLT7NAQ/edit?usp=sharing" target="_blank" rel="noopener"><strong>Mixed Methods Research Document</strong><span>Empirical grounding and proposed study design</span></a>
+    <a class="resource-link" href="https://minerclass.github.io/dissertationquestionsbeta/dissertation-sites/" target="_blank" rel="noopener"><strong>Dissertation Sites Dashboard</strong><span>Public map of conceptual, methodological, and research artifacts</span></a>
+    <a class="resource-link" href="https://minerclass.github.io/writing-sites-hub/" target="_blank" rel="noopener"><strong>Writing Sites Hub</strong><span>Public writing and reviewer-facing pathways</span></a>
+    <a class="resource-link" href="https://minerclass.github.io/dissertationquestionsbeta/tertiary-algorithmicity-companion/" target="_blank" rel="noopener"><strong>Tertiary Algorithmicity Companion</strong><span>Interactive Ong-centered theoretical companion</span></a>
+    <a class="resource-link" href="https://minerclass.github.io/genAI-ML-pedagogy-of-friction-site/" target="_blank" rel="noopener"><strong>Pedagogical Friction Companion</strong><span>Framework, productive struggle, and practice routes</span></a>
+    <a class="resource-link" href="https://minerclass.github.io/qualifying-dissertation-litreview/" target="_blank" rel="noopener"><strong>Qualifying Dissertation Literature Review</strong><span>Source routes connecting media ecology, learning science, and AI</span></a>
+  </aside>
+
+  <aside class="notes-panel" id="notesPanel" aria-live="polite" aria-hidden="true">
+    <h3>Speaker notes</h3>
+    <p id="notesText"></p>
+  </aside>
+
+  <section class="overview" id="overview" aria-label="Slide overview" aria-hidden="true">
+    <button class="choice" id="closeOverview">Close overview</button>
+    <h2 style="font-size:3rem; margin-top:20px;">Slide overview</h2>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </section>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const progressBar = document.getElementById("progressBar");
+    const resourceDrawer = document.getElementById("resourceDrawer");
+    const notesPanel = document.getElementById("notesPanel");
+    const notesText = document.getElementById("notesText");
+    const overview = document.getElementById("overview");
+    const overviewGrid = document.getElementById("overviewGrid");
+    let current = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
+
+    function showSlide(index, updateHash = true) {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === current);
+        slide.setAttribute("aria-hidden", i === current ? "false" : "true");
+        slide.querySelector(".slide-number").textContent = `${String(i + 1).padStart(2, "0")} / ${slides.length}`;
+      });
+      progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+      const note = slides[current].querySelector(".speaker-notes");
+      notesText.textContent = note ? note.textContent.trim() : "No notes for this slide.";
+      document.title = `${slides[current].dataset.title} | AAACS 2026`;
+      if (updateHash) history.replaceState(null, "", `#${current + 1}`);
+    }
+
+    function closePanels() {
+      resourceDrawer.classList.remove("open");
+      resourceDrawer.setAttribute("aria-hidden", "true");
+      notesPanel.classList.remove("open");
+      notesPanel.setAttribute("aria-hidden", "true");
+      overview.classList.remove("open");
+      overview.setAttribute("aria-hidden", "true");
+    }
+
+    function togglePanel(panel) {
+      const willOpen = !panel.classList.contains("open");
+      closePanels();
+      if (willOpen) {
+        panel.classList.add("open");
+        panel.setAttribute("aria-hidden", "false");
+      }
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => showSlide(current - 1));
+    document.getElementById("nextBtn").addEventListener("click", () => showSlide(current + 1));
+    document.getElementById("resourcesBtn").addEventListener("click", () => togglePanel(resourceDrawer));
+    document.querySelectorAll("[data-open-resources]").forEach(btn => btn.addEventListener("click", () => togglePanel(resourceDrawer)));
+    document.getElementById("notesBtn").addEventListener("click", () => togglePanel(notesPanel));
+    document.getElementById("overviewBtn").addEventListener("click", () => togglePanel(overview));
+    document.getElementById("closeResources").addEventListener("click", closePanels);
+    document.getElementById("closeOverview").addEventListener("click", closePanels);
+
+    slides.forEach((slide, i) => {
+      const button = document.createElement("button");
+      button.innerHTML = `<span>${String(i + 1).padStart(2, "0")}</span><strong>${slide.dataset.title}</strong>`;
+      button.addEventListener("click", () => { closePanels(); showSlide(i); });
+      overviewGrid.appendChild(button);
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.target.matches("textarea, input")) return;
+      if (event.key === "Escape") return closePanels();
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) { event.preventDefault(); showSlide(current + 1); }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) { event.preventDefault(); showSlide(current - 1); }
+      if (event.key === "Home") showSlide(0);
+      if (event.key === "End") showSlide(slides.length - 1);
+      if (event.key.toLowerCase() === "r") togglePanel(resourceDrawer);
+      if (event.key.toLowerCase() === "n") togglePanel(notesPanel);
+      if (event.key.toLowerCase() === "o") togglePanel(overview);
+      if (event.key.toLowerCase() === "f") document.documentElement.requestFullscreen?.();
+    });
+
+    document.querySelectorAll("[data-reveal-group]").forEach(group => {
+      group.querySelectorAll("[data-reveal]").forEach(button => {
+        button.addEventListener("click", () => {
+          group.querySelectorAll(".choice").forEach(choice => choice.classList.remove("selected"));
+          button.classList.add("selected");
+          const container = group.parentElement;
+          container.querySelectorAll(".reveal").forEach(reveal => reveal.classList.remove("show"));
+          document.getElementById(button.dataset.reveal).classList.add("show");
+        });
+      });
+    });
+
+    const dimensions = {
+      noetic: { title: "Noetic friction · coming to know", text: "The interpretive struggle through which understanding is constructed: prediction, retrieval, generation, failure, and revision.", bypass: "Bypass threat: noetic displacement. Conclusions and structure arrive before the learner’s thinking begins." },
+      rhetorical: { title: "Rhetorical friction · finding words with others", text: "The labor of forming a claim, addressing an audience, receiving response, and becoming answerable for language.", bypass: "Bypass threat: rhetorical saturation. Fluent discourse performs a conviction the learner may never have formed." },
+      existential: { title: "Existential friction · becoming a self", text: "The encounter with one’s own thinking, commitments, uncertainty, and authorship through educational experience.", bypass: "Bypass threat: existential abstraction. The learner is present at the transaction but absent from the work." },
+      infrastructural: { title: "Infrastructural friction · institutional deliberation", text: "Policy, assessment, professional learning, governance, time, and leadership that make the other dimensions sustainable.", bypass: "Bypass threat: vendor defaults become curriculum policy when institutions do not deliberate." }
+    };
+    const dimensionDetail = document.getElementById("dimensionDetail");
+    function renderDimension(key) {
+      const item = dimensions[key];
+      dimensionDetail.innerHTML = `<span class="tag">Selected dimension</span><h3>${item.title}</h3><p>${item.text}</p><p><strong>${item.bypass}</strong></p>`;
+    }
+    document.getElementById("dimensionButtons").querySelectorAll("button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.getElementById("dimensionButtons").querySelectorAll("button").forEach(btn => btn.classList.remove("selected"));
+        button.classList.add("selected");
+        renderDimension(button.dataset.dimension);
+      });
+    });
+    renderDimension("noetic");
+
+    const ongStages = {
+      orality: { title: "Primary orality · knowledge lives between people", text: "Memory, presence, repetition, and communal response shape what can be known. The knower cannot stand wholly outside the living word.", question: "What forms of knowing become possible only through participation?" },
+      literacy: { title: "Literacy · the word becomes an object", text: "Writing enables distance, analysis, durable records, and solitary reflection while changing the relationship between speaker, text, and audience.", question: "What does abstraction make possible, and what forms of presence does it thin?" },
+      secondary: { title: "Secondary orality · participatory presence returns", text: "Electronic media recover immediacy and communal feeling, but remain produced through literate institutions and broadcast systems.", question: "Who controls the channels through which participation becomes possible?" },
+      algorithmic: { title: "Algorithmic secondary orality · circulation is curated", text: "Platforms sort, recommend, rank, and personalize the symbolic environment. The field of attention becomes computationally organized.", question: "What becomes curriculum when an algorithm organizes what is encountered?" },
+      tertiary: { title: "Tertiary algorithmicity · symbolic production is generated", text: "Generative systems do not only circulate human symbolic work. They produce its visible forms, making fluent performance available before human interpretation or commitment.", question: "What happens to study when the medium can perform thought’s visible traces?" }
+    };
+    const tensionLenses = {
+      mechanism: { title: "Mechanism lens · Why can difficulty matter?", text: "Learning sciences identify mechanisms through which prediction, retrieval, generation, failure, and revision can support durable understanding.", question: "Risk: treating the learner as a processing system and the purpose of education as measurable performance." },
+      meaning: { title: "Meaning lens · What is the difficulty for?", text: "Curriculum studies asks how educational experiences form subjects, distribute authority, carry histories, and create or restrict possible futures.", question: "Risk: naming the political and ethical stakes without specifying which learning processes are being displaced." },
+      medium: { title: "Media-ecology hinge · Under what conditions does knowing occur?", text: "Ong makes cognition historical and environmental. The medium restructures consciousness, relationships, authority, and the conditions under which curriculum is lived.", question: "Synthesis: mechanism matters, but the curricular question is which conditions of knowing education should defend." }
+    };
+    const systems = {
+      classroom: { title: "Classroom · the nearest site of interruption", text: "Educators can redesign sequence, assessment, dialogue, and answerability so that AI assistance follows rather than replaces essential interpretive labor.", question: "Intervention question: What must learners still explain, defend, revise, or transfer?" },
+      institution: { title: "Institution · the conditions that make practice sustainable", text: "Policies, schedules, professional learning, leadership, and procurement determine whether teachers can preserve productive friction without acting alone.", question: "Intervention question: What learning values need to be written down and resourced?" },
+      platform: { title: "Platform · product design is never pedagogically neutral", text: "Defaults, interfaces, metrics, permissions, and model behaviors structure what actions feel normal, easy, visible, or valuable.", question: "Intervention question: Which defaults should schools accept, configure, refuse, or contest?" },
+      economy: { title: "Political economy · the system defining innovation", text: "Scale, extraction, ownership, labor, and efficiency shape which educational futures receive investment and which forms of human work are treated as waste.", question: "Intervention question: Who benefits when educational friction is optimized away?" }
+    };
+    const practices = {
+      before: { title: "Predict, attempt, retrieve", text: "Ask for a first model, claim, solution path, or memory retrieval before AI consultation.", question: "Interrupts: noetic displacement. Protects: the learner’s initial encounter with the problem." },
+      with: { title: "Interrogate, compare, revise", text: "Make critique, verification, contrast, and transformation the assessed work rather than accepting generated completion.", question: "Interrupts: passive acceptance. Protects: judgment and rhetorical decision-making." },
+      after: { title: "Defend, transfer, own", text: "Require learners to explain choices, respond to questions, revise under new constraints, or apply understanding elsewhere.", question: "Interrupts: unproductive success. Protects: transfer, ownership, and answerability." },
+      room: { title: "Restore answerability", text: "Use conversation, peer response, conferences, and real audiences who can disagree, question, and require clarification.", question: "Interrupts: rhetorical saturation. Protects: the social risk and relational work of language." },
+      institution: { title: "Write down learning values", text: "Build AI policy, assessment systems, and professional learning around cognition, access, privacy, and human accountability.", question: "Interrupts: governance by default. Protects: collective curricular authority." },
+      metric: { title: "Value process, not only polish", text: "Make drafts, decisions, reflection, revision, explanation, and evidence of changing thought visible in evaluation.", question: "Interrupts: the equation of polished output with learning. Protects: study as a process." }
+    };
+    const routes = {
+      theory: { title: "Conceptual route", text: "Begin with the Tertiary Algorithmicity Companion, then move through the Pedagogical Friction companion and literature-review source routes.", url: "https://minerclass.github.io/dissertationquestionsbeta/tertiary-algorithmicity-companion/", label: "Open the theoretical companion ↗" },
+      research: { title: "Study-design route", text: "Use the Dissertation Sites Dashboard to inspect the current study frame, methods tools, proposal architecture, and public research artifacts.", url: "https://minerclass.github.io/dissertationquestionsbeta/dissertation-sites/", label: "Open the dissertation dashboard ↗" },
+      practice: { title: "Practice and public-scholarship route", text: "Use the Writing Sites Hub and public resources to move from conceptual framing toward educator-facing writing, policy reflection, and community return.", url: "https://minerclass.github.io/writing-sites-hub/", label: "Open the writing hub ↗" }
+    };
+
+    function wireExplorer(containerId, detailId, data, attribute) {
+      const container = document.getElementById(containerId);
+      const detail = document.getElementById(detailId);
+      const render = key => {
+        const item = data[key];
+        detail.innerHTML = `<h3>${item.title}</h3><p>${item.text}</p>${item.question ? `<p><strong>${item.question}</strong></p>` : ""}${item.url ? `<p><a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a></p>` : ""}`;
+      };
+      container.querySelectorAll(`[data-${attribute}]`).forEach(button => {
+        button.addEventListener("click", () => {
+          container.querySelectorAll("button").forEach(btn => btn.classList.remove("selected"));
+          button.classList.add("selected");
+          render(button.dataset[attribute]);
+        });
+      });
+      render(container.querySelector(`[data-${attribute}]`).dataset[attribute]);
+    }
+    wireExplorer("ongTimeline", "ongDetail", ongStages, "stage");
+    wireExplorer("tensionLenses", "tensionDetail", tensionLenses, "lens");
+    wireExplorer("systemMap", "systemDetail", systems, "system");
+    wireExplorer("practiceExplorer", "practiceDetail", practices, "practice");
+    wireExplorer("routeExplorer", "routeDetail", routes, "route");
+
+    document.getElementById("pathTabs").querySelectorAll("button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.getElementById("pathTabs").querySelectorAll("button").forEach(btn => btn.classList.remove("selected"));
+        button.classList.add("selected");
+        document.querySelectorAll(".path-content").forEach(content => content.classList.remove("show"));
+        document.getElementById(button.dataset.path).classList.add("show");
+      });
+    });
+
+    const votes = [0, 0, 0];
+    document.querySelectorAll(".pulse").forEach(button => {
+      button.addEventListener("click", () => {
+        votes[Number(button.dataset.vote)] += 1;
+        const max = Math.max(...votes, 1);
+        document.querySelectorAll(".pulse").forEach((pulse, i) => {
+          pulse.style.setProperty("--vote-height", `${(votes[i] / max) * 92}%`);
+          pulse.querySelector("span").textContent = `${["In the assignment", "In the interface", "In institutional policy"][i]} · ${votes[i]}`;
+        });
+      });
+    });
+
+    const praxisSelections = {};
+    const praxisOutput = document.getElementById("praxisOutput");
+    function renderPraxis() {
+      document.querySelectorAll("[data-builder-key]").forEach(row => {
+        const selected = row.querySelector(".pill.selected");
+        praxisSelections[row.dataset.builderKey] = selected.dataset.value;
+      });
+      praxisOutput.textContent = `In my context, I will preserve or redesign ${praxisSelections.preserve} because it helps learners ${praxisSelections.capacity}, while removing ${praxisSelections.remove} because it restricts ${praxisSelections.restrict}.`;
+    }
+    document.getElementById("praxisBuilder").querySelectorAll(".pill").forEach(button => {
+      button.addEventListener("click", () => {
+        const row = button.closest("[data-builder-key]");
+        row.querySelectorAll(".pill").forEach(pill => pill.classList.remove("selected"));
+        button.classList.add("selected");
+        renderPraxis();
+      });
+    });
+    document.getElementById("copyPraxis").addEventListener("click", async () => {
+      const status = document.getElementById("copyStatus");
+      try {
+        await navigator.clipboard.writeText(praxisOutput.textContent);
+        status.textContent = "Copied. Ready to paste into chat.";
+      } catch {
+        status.textContent = "Select the statement and copy it manually.";
+      }
+    });
+    renderPraxis();
+
+    window.addEventListener("hashchange", () => showSlide(Number(location.hash.slice(1)) - 1, false));
+    showSlide(current, false);
+  </script>
+</body>
+</html>
