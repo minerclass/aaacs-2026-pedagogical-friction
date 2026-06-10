@@ -430,7 +430,164 @@
     .route-detail { margin-top: 20px; }
 
     .path-content { display: none; }
-    .path-content.show { display: block; animation: rise .3s ease; }
+    .path-content.show {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(310px, .95fr);
+      gap: clamp(22px, 4vw, 64px);
+      align-items: center;
+      animation: rise .3s ease;
+    }
+    .path-copy p { max-width: 48ch; }
+    .path-copy p:last-child { margin-bottom: 0; }
+    .path-visual {
+      position: relative;
+      min-height: 260px;
+      padding: clamp(18px, 2vw, 28px);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        linear-gradient(rgba(23,25,20,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23,25,20,.035) 1px, transparent 1px),
+        rgba(255,255,255,.5);
+      background-size: 24px 24px;
+      overflow: hidden;
+    }
+    .visual-label {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--ember);
+      font-family: var(--mono);
+      font-size: clamp(.68rem, .9vw, .82rem);
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .visual-node {
+      display: grid;
+      place-items: center;
+      min-height: 48px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.85);
+      font-size: clamp(.78rem, 1vw, 1rem);
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .currere-map {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 58px;
+      position: relative;
+      padding: 6px 10px 4px;
+    }
+    .currere-map::before {
+      content: "";
+      position: absolute;
+      inset: 24px 28px;
+      border: 3px dashed var(--moss);
+      border-radius: 50%;
+      opacity: .6;
+    }
+    .currere-map .visual-node { position: relative; z-index: 1; }
+    .currere-map .visual-node:nth-child(2),
+    .currere-map .visual-node:nth-child(3) { border-color: rgba(184,79,50,.45); }
+    .currere-center {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      z-index: 2;
+      width: 108px;
+      min-height: 72px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      color: white;
+      background: var(--forest);
+      box-shadow: 0 0 0 9px rgba(73,115,95,.16);
+      font-family: var(--serif);
+      font-size: 1rem;
+    }
+
+    .language-map { display: grid; gap: 8px; }
+    .language-lens {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 8px 12px;
+      border-left: 7px solid var(--blue);
+      border-radius: 8px 14px 14px 8px;
+      background: rgba(255,255,255,.78);
+    }
+    .language-lens:nth-child(2) { margin-left: 18px; border-color: var(--ember); }
+    .language-lens:nth-child(3) { margin-left: 36px; border-color: var(--moss); }
+    .language-lens:nth-child(4) { margin-left: 54px; border-color: var(--gold); }
+    .language-lens strong { font-family: var(--mono); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; }
+    .language-lens span { font-family: var(--serif); font-size: clamp(.88rem, 1.12vw, 1.08rem); }
+
+    .hidden-map { display: grid; gap: 14px; }
+    .hidden-layer {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 8px 20px rgba(34,28,17,.08);
+    }
+    .hidden-layer.visible { border: 2px solid var(--moss); }
+    .hidden-layer.underneath {
+      border: 2px dashed var(--ember);
+      background: rgba(184,79,50,.08);
+      transform: translateX(18px);
+    }
+    .hidden-layer .micro { display: block; margin-bottom: 8px; color: var(--ember); }
+    .hidden-layer p { margin: 0; font-size: clamp(.82rem, 1.06vw, 1.05rem); line-height: 1.35; }
+    .hidden-arrow { color: var(--ember); font-family: var(--mono); font-size: .78rem; font-weight: 700; text-align: center; text-transform: uppercase; }
+
+    .fugitive-map {
+      position: relative;
+      min-height: 198px;
+      margin-top: 2px;
+      border: 3px solid var(--ink);
+      border-right-style: dashed;
+      border-radius: 16px;
+    }
+    .fugitive-map::after {
+      content: "movement beyond enclosure →";
+      position: absolute;
+      right: -14px;
+      bottom: -27px;
+      color: var(--ember);
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .enclosure-label {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .fugitive-node {
+      position: absolute;
+      width: 116px;
+      min-height: 48px;
+      border-color: rgba(73,115,95,.55);
+    }
+    .fugitive-node:nth-of-type(1) { left: 12%; top: 31%; }
+    .fugitive-node:nth-of-type(2) { left: 45%; top: 18%; }
+    .fugitive-node:nth-of-type(3) { left: 38%; top: 61%; }
+    .fugitive-node:nth-of-type(4) {
+      right: -44px;
+      top: 44%;
+      border-color: var(--ember);
+      background: #fff7ed;
+      box-shadow: 0 0 0 7px rgba(184,79,50,.12);
+    }
     .citation { color: var(--muted); font-size: clamp(.78rem, 1vw, 1rem); }
     .dark .citation, .blue .citation { color: rgba(255,255,255,.6); }
     .slide.compact { gap: clamp(10px, 1.3vh, 18px); padding-top: clamp(22px, 3vw, 48px); padding-bottom: clamp(22px, 3vw, 44px); }
@@ -478,6 +635,7 @@
       .builder-grid { grid-template-columns: 1fr; }
       .title-layout { grid-template-columns: 1fr; }
       .join-card { width: min(260px, 78vw); }
+      .path-visual { min-height: 235px; }
     }
 
     @media (max-width: 620px) {
@@ -486,6 +644,11 @@
       .grid-3, .grid-4, .pulse-row { grid-template-columns: 1fr; }
       .controls .optional { display: none; }
       .topline { align-items: flex-start; }
+      .path-content.show { grid-template-columns: 1fr; }
+      .language-lens { grid-template-columns: 1fr; gap: 3px; }
+      .language-lens:nth-child(n) { margin-left: 0; }
+      .fugitive-node { width: 100px; font-size: .7rem; }
+      .fugitive-node:nth-of-type(4) { right: -14px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -713,7 +876,7 @@
       <aside class="speaker-notes">Give participants 90 seconds to choose and identify the missing contextual fact. Listen for learning goal, learner profile, prior instruction, available scaffolds, and what the learner must later do independently.</aside>
     </section>
 
-    <section class="slide" data-title="Pathways to Curriculum Studies">
+    <section class="slide compact" data-title="Pathways to Curriculum Studies">
       <div class="topline"><span class="kicker">Reviewer 2 · Stronger conceptual pathways</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Pedagogical friction is already a <em>curriculum studies</em> question</h2>
@@ -723,11 +886,56 @@
           <button class="tab" data-path="hidden">Hidden curriculum</button>
           <button class="tab" data-path="fugitive">Fugitivity</button>
         </div>
-        <div class="interaction" style="margin-top:24px; min-height:300px;">
-          <article class="path-content show" id="currere"><h3>Currere and the complicated conversation</h3><p>If education concerns how subjects understand their experience across past, present, and future, then existential friction protects the learner’s presence in the act of study.</p><p class="citation">Pathway: Pinar and the autobiographical study of educational experience.</p></article>
-          <article class="path-content" id="languages"><h3>The languages of curriculum</h3><p>Technical language asks whether AI makes learning efficient. Political, ethical, and aesthetic languages ask who gains, who is shaped, what is valued, and what kind of world is being made.</p><p class="citation">Pathway: Huebner’s critique of technical rationality.</p></article>
-          <article class="path-content" id="hidden"><h3>The hidden curriculum of frictionlessness</h3><p>A platform that makes completion effortless teaches that knowledge is instantly available, language is interchangeable, and polished performance is equivalent to understanding.</p><p class="citation">Pathway: Apple and the politics embedded in ordinary educational arrangements.</p></article>
-          <article class="path-content" id="fugitive"><h3>Fugitivity and subversive praxis</h3><p>Friction-preserving practices can refuse enclosure by keeping study dialogic, relational, unfinished, and answerable to communities rather than platform metrics.</p><p class="citation">Pathway: Moten and Harney; Givens; the conference theme of subversion.</p></article>
+        <div class="interaction" style="margin-top:20px; min-height:300px;" aria-live="polite">
+          <article class="path-content show" id="currere">
+            <div class="path-copy"><h3>Currere and the complicated conversation</h3><p>If education concerns how subjects understand their experience across past, present, and future, then existential friction protects the learner’s presence in the act of study.</p><p class="citation">Pathway: Pinar and the autobiographical study of educational experience.</p></div>
+            <div class="path-visual" role="img" aria-label="Currere visualized as four recursive moments around the self in study.">
+              <span class="visual-label">Study as recursive movement</span>
+              <div class="currere-map">
+                <div class="visual-node">Regressive<br><small>return to experience</small></div>
+                <div class="visual-node">Progressive<br><small>imagine possibilities</small></div>
+                <div class="visual-node">Synthetical<br><small>live anew</small></div>
+                <div class="visual-node">Analytical<br><small>interpret the present</small></div>
+                <div class="visual-node currere-center">self<br>in study</div>
+              </div>
+            </div>
+          </article>
+          <article class="path-content" id="languages">
+            <div class="path-copy"><h3>The languages of curriculum</h3><p>Technical language asks whether AI makes learning efficient. Political, ethical, and aesthetic languages ask who gains, who is shaped, what is valued, and what kind of world is being made.</p><p class="citation">Pathway: Huebner’s critique of technical rationality.</p></div>
+            <div class="path-visual" role="img" aria-label="Four curriculum languages frame different questions about AI and education.">
+              <span class="visual-label">Change the language, change the question</span>
+              <div class="language-map">
+                <div class="language-lens"><strong>Technical</strong><span>Does it work efficiently?</span></div>
+                <div class="language-lens"><strong>Political</strong><span>Who gains authority?</span></div>
+                <div class="language-lens"><strong>Ethical</strong><span>What do we owe learners?</span></div>
+                <div class="language-lens"><strong>Aesthetic</strong><span>What kind of world is made?</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="path-content" id="hidden">
+            <div class="path-copy"><h3>The hidden curriculum of frictionlessness</h3><p>A platform that makes completion effortless teaches that knowledge is instantly available, language is interchangeable, and polished performance is equivalent to understanding.</p><p class="citation">Pathway: Apple and the politics embedded in ordinary educational arrangements.</p></div>
+            <div class="path-visual" role="img" aria-label="The promised interface of speed and polish sits above the hidden lessons of frictionlessness.">
+              <span class="visual-label">The interface teaches twice</span>
+              <div class="hidden-map">
+                <div class="hidden-layer visible"><span class="micro">What is promised</span><p>Speed · ease · access · polished completion</p></div>
+                <div class="hidden-arrow">also teaches ↓</div>
+                <div class="hidden-layer underneath"><span class="micro">What is normalized</span><p>Knowledge is instant · language is interchangeable · performance equals understanding</p></div>
+              </div>
+            </div>
+          </article>
+          <article class="path-content" id="fugitive">
+            <div class="path-copy"><h3>Fugitivity and subversive praxis</h3><p>Friction-preserving practices can refuse enclosure by keeping study dialogic, relational, unfinished, and answerable to communities rather than platform metrics.</p><p class="citation">Pathway: Moten and Harney; Givens; the conference theme of subversion.</p></div>
+            <div class="path-visual" role="img" aria-label="Dialogic and relational study moves beyond the enclosure of platform metrics.">
+              <span class="visual-label">Study exceeds the platform</span>
+              <div class="fugitive-map">
+                <span class="enclosure-label">platform enclosure</span>
+                <div class="visual-node fugitive-node">dialogue</div>
+                <div class="visual-node fugitive-node">relation</div>
+                <div class="visual-node fugitive-node">unfinished study</div>
+                <div class="visual-node fugitive-node">community answerability</div>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
       <div class="footer"><span>The pathway is not “AI applied to curriculum.”</span><a href="https://minerclass.github.io/Curriculum-Studies-Primer/" target="_blank" rel="noopener">Open Curriculum Studies Primer ↗</a></div>
