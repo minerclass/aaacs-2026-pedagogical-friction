@@ -414,13 +414,13 @@
     .explorer-detail h3 { margin-bottom: 6px; }
     .explorer-detail p { margin-bottom: 0; font-size: clamp(.9rem, 1.3vw, 1.3rem); }
 
-    .lens-card, .system-node, .practice-card, .route-card {
+    .lens-card, .system-node, .practice-card, .route-card, .techno-question {
       width: 100%;
       color: inherit;
       text-align: left;
       cursor: pointer;
     }
-    .lens-card.selected, .system-node.selected, .practice-card.selected, .route-card.selected {
+    .lens-card.selected, .system-node.selected, .practice-card.selected, .route-card.selected, .techno-question.selected {
       border-color: var(--ember);
       box-shadow: 0 0 0 3px rgba(184,79,50,.18), 0 12px 35px rgba(34,28,17,.08);
     }
@@ -625,6 +625,53 @@
     .pathways-slide .interaction { padding: clamp(15px, 1.65vw, 24px); }
     .pathways-slide .path-copy p { font-size: clamp(.92rem, 1.28vw, 1.35rem); line-height: 1.35; }
     .pathways-slide .path-visual { min-height: 245px; }
+    .slide.compact.contribution-slide { gap: 8px; padding-top: 22px; padding-bottom: 22px; }
+    .slide.compact.contribution-slide h2 { font-size: clamp(2.25rem, 4.2vw, 4.5rem); margin-bottom: .2em; }
+    .contribution-slide .grid-3 { gap: clamp(10px, 1.3vw, 20px); }
+    .contribution-slide .card { padding: clamp(12px, 1.35vw, 20px); }
+    .contribution-slide .card p { font-size: clamp(.88rem, 1.15vw, 1.18rem); line-height: 1.32; }
+    .techno-test {
+      display: grid;
+      grid-template-columns: minmax(230px, .62fr) minmax(0, 1.38fr);
+      gap: clamp(14px, 2vw, 28px);
+      align-items: center;
+      margin-top: 14px;
+      padding: clamp(13px, 1.45vw, 20px);
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.54);
+    }
+    .techno-intro h3 { margin-bottom: 5px; }
+    .techno-intro p { margin-bottom: 8px; font-size: clamp(.78rem, 1vw, 1rem); line-height: 1.35; }
+    .techno-intro a { color: var(--ember); font-weight: 750; text-underline-offset: 3px; }
+    .techno-explorer { min-width: 0; }
+    .techno-questions { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; }
+    .techno-question {
+      min-height: 45px;
+      padding: 7px 6px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,.75);
+      font-size: clamp(.64rem, .78vw, .78rem);
+      font-weight: 750;
+      line-height: 1.18;
+      text-align: center;
+    }
+    .techno-detail {
+      margin-top: 9px;
+      padding: 8px 11px;
+      border-left: 4px solid var(--ember);
+      background: rgba(255,255,255,.6);
+    }
+    .techno-detail h3 { margin-bottom: 2px; font-size: clamp(.88rem, 1.12vw, 1.08rem); }
+    .techno-detail p { margin-bottom: 0; font-size: clamp(.72rem, .92vw, .9rem); line-height: 1.3; }
+    .contribution-claim {
+      margin: 12px 0 0;
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 2vw, 2.15rem);
+      line-height: 1.12;
+      text-align: center;
+    }
 
     .link-cloud { display: flex; gap: 13px; flex-wrap: wrap; }
     .link-cloud a { text-decoration: none; }
@@ -664,6 +711,8 @@
       .title-layout { grid-template-columns: 1fr; }
       .join-card { width: min(260px, 78vw); }
       .path-visual { min-height: 235px; }
+      .techno-test { grid-template-columns: 1fr; }
+      .techno-questions { grid-template-columns: repeat(5, minmax(90px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
     }
 
     @media (max-width: 620px) {
@@ -1108,7 +1157,7 @@
       <aside class="speaker-notes">AAACS audiences will rightly ask where you stand in relation to the problem. Name both the access to practice your role provides and the power and interpretive risks it creates.</aside>
     </section>
 
-    <section class="slide compact" data-title="What This Offers Curriculum Studies">
+    <section class="slide compact contribution-slide" data-title="What This Offers Curriculum Studies">
       <div class="topline"><span class="kicker">Contribution</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>What pedagogical friction offers <em>curriculum studies</em></h2>
@@ -1117,10 +1166,28 @@
           <article class="card"><span class="tag">A curricular warrant</span><p>Explains why some forms of difficulty deserve protection while others require removal or redesign.</p></article>
           <article class="card"><span class="tag">A praxis of interruption</span><p>Connects everyday classroom practices to institutional design and resistance to enclosure.</p></article>
         </div>
-        <p class="big-claim" style="margin-top:22px;">If curriculum is the conversation a generation has with itself about what is worth knowing, friction keeps that conversation from being <em>auto-completed</em>.</p>
+        <div class="techno-test">
+          <div class="techno-intro">
+            <span class="tag">A technoskeptical test</span>
+            <h3>Neither rejection nor surrender</h3>
+            <p>Technoskepticism asks whether technological change remains answerable to educational purposes.</p>
+            <a href="https://static1.squarespace.com/static/60cf7350af4a9a05e12ced8f/t/63efae5fa04ca565644cac5b/1676652127374/Postman+Five+Things+To+Know+About+Technological+Change.pdf" target="_blank" rel="noopener">Read Postman’s five propositions ↗</a>
+          </div>
+          <div class="techno-explorer">
+            <div class="techno-questions" id="technoQuestions">
+              <button class="techno-question selected" data-techno="tradeoff">What is gained and lost?</button>
+              <button class="techno-question" data-techno="distribution">Who benefits and pays?</button>
+              <button class="techno-question" data-techno="idea">What idea is embedded?</button>
+              <button class="techno-question" data-techno="ecology">What whole ecology changes?</button>
+              <button class="techno-question" data-techno="myth">What becomes inevitable?</button>
+            </div>
+            <article class="techno-detail" id="technoDetail" aria-live="polite"></article>
+          </div>
+        </div>
+        <p class="contribution-claim">Pedagogical friction keeps the curriculum conversation from being <em>auto-completed</em>.</p>
       </div>
-      <div class="footer"><span>Media ecology · learning science · curriculum theory</span><span>A bridge that must remain open to critique.</span></div>
-      <aside class="speaker-notes">Answer the reviewers directly in the oral transition: the paper’s contribution is not simply adding curriculum scholars to a learning-science framework. It treats the conditions of cognitive labor as a curricular, political, and ethical matter.</aside>
+      <div class="footer"><span>Postman’s propositions translated into curricular questions.</span><span>A bridge that must remain open to critique.</span></div>
+      <aside class="speaker-notes">Answer the reviewers directly in the oral transition: the paper’s contribution is not simply adding curriculum scholars to a learning-science framework. It treats the conditions of cognitive labor as a curricular, political, and ethical matter. Define technoskepticism as disciplined questioning rather than opposition to technology. Use one or two Postman questions to demonstrate how the framework interrogates trade-offs, distribution, embedded assumptions, ecological change, and technological inevitability.</aside>
     </section>
 
     <section class="slide dark" data-title="Discussion">
@@ -1322,6 +1389,13 @@
       research: { title: "Study-design route", text: "Use the Dissertation Sites Dashboard to inspect the current study frame, methods tools, proposal architecture, and public research artifacts.", url: "https://minerclass.github.io/dissertationquestionsbeta/dissertation-sites/", label: "Open the dissertation dashboard ↗" },
       practice: { title: "Practice and public-scholarship route", text: "Use the Writing Sites Hub and public resources to move from conceptual framing toward educator-facing writing, policy reflection, and community return.", url: "https://minerclass.github.io/writing-sites-hub/", label: "Open the writing hub ↗" }
     };
+    const technoQuestions = {
+      tradeoff: { title: "Every technology is a trade-off.", text: "Ask which capacities AI extends and which forms of attention, judgment, authorship, or study it may displace." },
+      distribution: { title: "Benefits and burdens are unevenly distributed.", text: "Ask who gains access, authority, time, profit, or voice—and who absorbs the risks, exclusions, and losses." },
+      idea: { title: "Every technology carries an embedded idea.", text: "Ask what the tool assumes learning is: efficient completion, measurable performance, conversation, formation, or something else." },
+      ecology: { title: "Technological change is ecological, not additive.", text: "Ask how AI reorganizes assessment, teacher judgment, student relationships, policy, curriculum, and institutional authority together." },
+      myth: { title: "Technologies can become mythic.", text: "Ask when a designed system begins to feel natural, neutral, or inevitable—and which curricular choices disappear from deliberation." }
+    };
 
     function wireExplorer(containerId, detailId, data, attribute) {
       const container = document.getElementById(containerId);
@@ -1344,6 +1418,7 @@
     wireExplorer("systemMap", "systemDetail", systems, "system");
     wireExplorer("practiceExplorer", "practiceDetail", practices, "practice");
     wireExplorer("routeExplorer", "routeDetail", routes, "route");
+    wireExplorer("technoQuestions", "technoDetail", technoQuestions, "techno");
 
     document.getElementById("pathTabs").querySelectorAll("button").forEach(button => {
       button.addEventListener("click", () => {
