@@ -349,9 +349,29 @@
     .reveal.show { display: block; animation: rise .3s ease; }
     @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .dimension-stage { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(20px, 4vw, 70px); }
-    .dimension-buttons { display: grid; gap: 12px; align-content: center; }
+    .dimension-stage { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(20px, 4vw, 70px); }
+    .dimension-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-content: center; }
     .dimension-buttons button { width: 100%; text-align: left; border-radius: 12px; }
+    .dimension-buttons .infrastructure-condition {
+      grid-column: 1 / -1;
+      border: 2px solid var(--moss);
+      background: rgba(73,115,95,.12);
+    }
+    .dimension-buttons .infrastructure-condition::before {
+      content: "Institutional condition";
+      display: block;
+      margin-bottom: 5px;
+      color: var(--moss);
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .dimension-buttons .infrastructure-condition.selected {
+      border-color: var(--moss);
+      background: var(--moss);
+    }
+    .dimension-buttons .infrastructure-condition.selected::before { color: rgba(255,255,255,.78); }
     .dimension-detail { min-height: 390px; display: grid; align-content: center; }
 
     .continuum {
@@ -723,7 +743,7 @@
       .slide { padding: 28px 24px 48px; }
       .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .dimension-stage, .grid-2 { grid-template-columns: 1fr; }
-      .dimension-buttons { grid-template-columns: repeat(2, 1fr); }
+      .dimension-buttons { grid-template-columns: repeat(3, 1fr); }
       .dimension-detail { min-height: 250px; }
       .timeline { grid-template-columns: 1fr; }
       .timeline .step { border-top: 0; border-left: 5px solid var(--moss); padding: 4px 0 4px 14px; }
@@ -740,6 +760,7 @@
       h1 { font-size: clamp(3rem, 16vw, 5rem); }
       h2 { font-size: clamp(2.35rem, 12vw, 4rem); }
       .grid-3, .grid-4, .pulse-row { grid-template-columns: 1fr; }
+      .dimension-buttons { grid-template-columns: 1fr; }
       .controls .optional { display: none; }
       .topline { align-items: flex-start; }
       .path-content.show { grid-template-columns: 1fr; }
@@ -855,8 +876,8 @@
           <article class="card"><span class="tag">Enclosure of judgment</span><p>The relocation of curricular decisions into platforms and systems.</p></article>
         </div>
       </div>
-      <div class="footer"><span>Subversion begins by making the enclosure visible.</span><a href="http://www.aaacs.org/conferences.html" target="_blank" rel="noopener">AAACS conference context</a></div>
-      <aside class="speaker-notes">Connect directly to the AAACS call around enclosure, extraction, and everyday acts of subversion without turning algorithmic enclosure into a flattening analogy for every form of violent enclosure. Name the difference, then show the relationship: platforms can normalize extraction, relocate authority, narrow public discourse, and make curricular decisions appear inevitable. Friction is not nostalgia for difficulty; it is a way to identify which human capacities and collective decisions are being enclosed.</aside>
+      <div class="footer"><span>Wu &amp; Taneja · Zuboff · Bucher · van Dijck</span><a href="http://www.aaacs.org/conferences.html" target="_blank" rel="noopener">AAACS conference context</a></div>
+      <aside class="speaker-notes">Ground the enclosure and extraction language so it is earned rather than borrowed. Algorithmic enclosure is not equivalent to every form of violent enclosure. In this argument, it names concrete platform mechanisms: systems capture attention and behavioral traces, organize symbolic environments through proprietary ranking and generation, standardize expression toward statistically available forms, and relocate educational judgment into vendor-controlled systems. Connect this account to Wu and Taneja on platform enclosure, Zuboff on attention and behavioral-data extraction, and Bucher and van Dijck on platform power. This places the argument within the paper’s established media-ecology and technoskeptical source base while answering the AAACS call’s political-economic concern.</aside>
     </section>
 
     <section class="slide" data-title="The Field Is Reporting">
@@ -925,22 +946,22 @@
       <aside class="speaker-notes">State the tension plainly. Cognitive science can help explain why effort matters but can psychologize curriculum. Curriculum theory can resist reduction but sometimes lacks a mechanism-level account of why specific forms of struggle matter. Pedagogical friction needs both and must remain accountable to both.</aside>
     </section>
 
-    <section class="slide compact" data-title="Four Dimensions of Pedagogical Friction">
+    <section class="slide compact" data-title="Learner-Facing Dimensions and Institutional Conditions">
       <div class="topline"><span class="kicker">Interactive framework</span><span class="slide-number"></span></div>
       <div class="content">
-        <h2>Four dimensions of <em>pedagogical friction</em></h2>
+        <h2>Three learner-facing dimensions, shaped by an <em>institutional condition</em></h2>
         <div class="dimension-stage">
           <div class="dimension-buttons" id="dimensionButtons">
             <button class="choice selected" data-dimension="noetic">Noetic · the head</button>
             <button class="choice" data-dimension="rhetorical">Rhetorical · the room</button>
             <button class="choice" data-dimension="existential">Existential · the world</button>
-            <button class="choice" data-dimension="infrastructural">Infrastructural · the system</button>
+            <button class="choice infrastructure-condition" data-dimension="infrastructural">Infrastructural friction · the system enabling or constraining all three</button>
           </div>
           <article class="card dimension-detail" id="dimensionDetail" aria-live="polite"></article>
         </div>
       </div>
-      <div class="footer"><span>Click a dimension · ask what disappears when it is bypassed</span><a href="https://minerclass.github.io/genAI-ML-pedagogy-of-friction-site/" target="_blank" rel="noopener">Pedagogical Friction companion</a></div>
-      <aside class="speaker-notes">Invite the audience to select the dimension they think is most neglected in current AI policy. In the discussion, emphasize that infrastructural friction is now treated as the institutional condition enabling or constraining the learner-facing dimensions.</aside>
+      <div class="footer"><span>Click a dimension or condition · ask what disappears when it is bypassed</span><span>Full framework available in Resources</span></div>
+      <aside class="speaker-notes">Invite the audience to select a learner-facing dimension or the institutional condition they think is most neglected in current AI policy. Emphasize that noetic, rhetorical, and existential friction name learner-facing forms of struggle, while infrastructural friction names the institutional conditions that enable or constrain whether those forms can be preserved equitably and sustainably.</aside>
     </section>
 
     <section class="slide compact" data-title="The Friction Test">
@@ -1036,7 +1057,7 @@
             </div>
           </article>
           <article class="path-content" id="fugitive">
-            <div class="path-copy"><h3>Fugitivity and subversive praxis</h3><p>Friction-preserving practices can refuse enclosure by keeping study dialogic, relational, unfinished, and answerable to communities rather than platform metrics.</p><p class="citation">Pathway: Moten and Harney; Givens; the conference theme of subversion.</p></div>
+            <div class="path-copy"><h3>Fugitivity, and the limit of this claim</h3><p>Fugitivity and the undercommons emerge from Black study and a politics of refusal. Pedagogical friction, especially when practiced from inside schools and districts, cannot claim that position. This tradition instead presses a critical question: when does friction-preserving reform protect study, and when does it merely improve the management of enclosure?</p><p class="citation">Harney and Moten; Givens — named as a critique this framework must answer, not a method it adopts.</p></div>
             <div class="path-visual" role="img" aria-label="Dialogic and relational study moves beyond the enclosure of platform metrics.">
               <span class="visual-label">Study exceeds the platform</span>
               <div class="fugitive-map">
@@ -1051,7 +1072,7 @@
         </div>
       </div>
       <div class="footer"><span>The pathway is not “AI applied to curriculum.”</span><span>It is a question of subject formation, authority, and refusal.</span></div>
-      <aside class="speaker-notes">This is the direct response to Reviewer 2. Avoid name-checking. Explain what each pathway changes about the argument. The curriculum-studies contribution is the relocation of AI from tool-choice discourse into questions of subject formation, authority, hidden curriculum, and refusal.</aside>
+      <aside class="speaker-notes">This is the direct response to Reviewer 2. Avoid name-checking. Explain what each pathway changes about the argument. The curriculum-studies contribution is the relocation of AI from tool-choice discourse into questions of subject formation, authority, hidden curriculum, and refusal. On the fugitivity panel, say the limit out loud. Fugitivity and the undercommons come from Black study and a politics of refusal; this framework answers that critique rather than claiming the practice. Friction-preserving reform from inside schools, districts, and an administrative role is a different and more compromised position. The question fugitivity places before the framework is whether institutional reform protects study and community answerability or merely produces better management of enclosure.</aside>
     </section>
 
     <section class="slide dark compact" data-title="Subversion Is Not Refusal of Technology">
@@ -1373,12 +1394,12 @@
       noetic: { title: "Noetic friction · coming to know", text: "The interpretive struggle through which understanding is constructed: prediction, retrieval, generation, failure, and revision.", bypass: "Bypass threat: noetic displacement. Conclusions and structure arrive before the learner’s thinking begins." },
       rhetorical: { title: "Rhetorical friction · finding words with others", text: "The labor of forming a claim, addressing an audience, receiving response, and becoming answerable for language.", bypass: "Bypass threat: rhetorical saturation. Fluent discourse performs a conviction the learner may never have formed." },
       existential: { title: "Existential friction · becoming a self", text: "The encounter with one’s own thinking, commitments, uncertainty, and authorship through educational experience.", bypass: "Bypass threat: existential abstraction. The learner is present at the transaction but absent from the work." },
-      infrastructural: { title: "Infrastructural friction · institutional deliberation", text: "Policy, assessment, professional learning, governance, time, and leadership that make the other dimensions sustainable.", bypass: "Bypass threat: vendor defaults become curriculum policy when institutions do not deliberate." }
+      infrastructural: { title: "Infrastructural friction · the enabling and constraining condition", text: "Policy, assessment, professional learning, governance, time, procurement, and leadership shape whether noetic, rhetorical, and existential friction can be preserved equitably and sustainably.", bypass: "System threat: vendor defaults become curriculum policy when institutions do not deliberate." }
     };
     const dimensionDetail = document.getElementById("dimensionDetail");
     function renderDimension(key) {
       const item = dimensions[key];
-      dimensionDetail.innerHTML = `<span class="tag">Selected dimension</span><h3>${item.title}</h3><p>${item.text}</p><p><strong>${item.bypass}</strong></p>`;
+      dimensionDetail.innerHTML = `<span class="tag">${key === "infrastructural" ? "Selected institutional condition" : "Selected learner-facing dimension"}</span><h3>${item.title}</h3><p>${item.text}</p><p><strong>${item.bypass}</strong></p>`;
     }
     document.getElementById("dimensionButtons").querySelectorAll("button").forEach(button => {
       button.addEventListener("click", () => {

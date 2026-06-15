@@ -45,6 +45,8 @@ Pedagogical friction enters curriculum studies through more than application to 
 - On the theory-bridge slide, let a participant choose which lens to foreground before revealing the synthesis.
 - On the friction-lab case, resist giving a fast answer. The missing contextual information is the point.
 - On the distributed-system map, ask the audience to choose the site where intervention currently feels most possible.
+- On the curriculum-studies pathways, name fugitivity as a critique the framework must answer rather than a practice it claims.
+- On the dimensions slide, distinguish the three learner-facing dimensions from infrastructural friction as their enabling or constraining institutional condition.
 - Use the practice explorer as a menu rather than reading all six practices.
 - Let participants assemble a praxis statement and use **Copy for chat** to share it.
 - Treat criticism of the framework as evidence of a complicated conversation, not a threat to the presentation.
