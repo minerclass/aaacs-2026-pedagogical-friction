@@ -207,6 +207,26 @@
       background: var(--ember);
       border-color: var(--ember);
     }
+    .tool-launch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--ember);
+      border-radius: 14px;
+      background: rgba(255,255,255,.62);
+    }
+    .dark .tool-launch, .blue .tool-launch {
+      border-color: rgba(255,255,255,.2);
+      border-left-color: var(--gold);
+      background: rgba(255,255,255,.07);
+    }
+    .tool-launch p { margin: 0; font-size: clamp(.86rem, 1.15vw, 1.12rem); }
+    .tool-launch .link-btn { flex: 0 0 auto; text-decoration: none; }
+    .tool-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
     .progress {
       position: fixed;
@@ -710,6 +730,7 @@
       .builder-grid { grid-template-columns: 1fr; }
       .title-layout { grid-template-columns: 1fr; }
       .join-card { width: min(260px, 78vw); }
+      .tool-launch { align-items: flex-start; flex-direction: column; }
       .path-visual { min-height: 235px; }
       .techno-test { grid-template-columns: 1fr; }
       .techno-questions { grid-template-columns: repeat(5, minmax(90px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
@@ -865,8 +886,15 @@
           <button class="step" data-stage="tertiary"><h3>Tertiary algorithmicity</h3><p>Systems generate symbolic content at scale, before human thought begins.</p></button>
         </div>
         <article class="explorer-detail" id="ongDetail" aria-live="polite"></article>
+        <div class="tool-launch">
+          <p><strong>Keeper of the Word:</strong> carry one message through five changing media environments.</p>
+          <div class="tool-actions">
+            <a class="link-btn" href="https://minerclass.github.io/orality_game/?conference=1" target="_blank" rel="noopener">Launch Keeper of the Word ↗</a>
+            <a class="link-btn" href="https://minerclass.github.io/dissertationquestionsbeta/tertiary-algorithmicity-companion/" target="_blank" rel="noopener">Open visual companion ↗</a>
+          </div>
+        </div>
       </div>
-      <div class="footer"><span>Ong (1982/2002) extended through the qualifying paper</span><span><a href="https://minerclass.github.io/orality_game/?conference=1" target="_blank" rel="noopener">Experience the five-stage journey</a> · <a href="https://minerclass.github.io/dissertationquestionsbeta/tertiary-algorithmicity-companion/" target="_blank" rel="noopener">Open visual companion</a></span></div>
+      <div class="footer"><span>Ong (1982/2002) extended through the qualifying paper</span><span>Media ecology as an intellectual hinge</span></div>
       <aside class="speaker-notes">This is the reviewer-one hinge. Do not present Ong as a decorative historical reference. Use him to relocate the cognitive-science question into a media ecology and curriculum question: what kinds of consciousness and social relations does the medium privilege?</aside>
     </section>
 
@@ -935,6 +963,10 @@
       <div class="topline"><span class="kicker">Audience activity · 5 minutes</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>The <em>friction lab</em></h2>
+        <div class="tool-launch">
+          <p><strong>Interactive Friction Lab:</strong> practice judging productive, exclusionary, and context-dependent friction.</p>
+          <a class="link-btn" href="https://minerclass.github.io/friction_game-/?conference=1" target="_blank" rel="noopener">Launch the Friction Lab ↗</a>
+        </div>
         <div class="interaction">
           <h3>Case: A multilingual learner drafts an argument in their home language, uses AI translation, then defends and revises the English version in conference.</h3>
           <p>How would you classify the AI-supported translation?</p>
@@ -948,7 +980,6 @@
           <div class="reveal" id="lab-both"><p><strong>This is the framework’s intended answer:</strong> preserve the relevant learning work while reducing barriers unrelated to the curricular purpose.</p></div>
         </div>
         <p class="micro" style="margin-top:22px;">Chat: What one additional fact would you need before deciding?</p>
-        <a class="link-btn" href="https://minerclass.github.io/friction_game-/?conference=1" target="_blank" rel="noopener">Continue in the full Friction Lab ↗</a>
       </div>
       <div class="footer"><span>Subversion refuses the false choice between access and thinking.</span><span>Use chat, breakout pair, or unmute.</span></div>
       <aside class="speaker-notes">Give participants 90 seconds to choose and identify the missing contextual fact. Listen for learning goal, learner profile, prior instruction, available scaffolds, and what the learner must later do independently.</aside>
