@@ -1,6 +1,6 @@
 # Pedagogical Friction as Subversive Praxis — AAACS 2026
 
-Interactive, self-contained HTML presentation for the American Association for the Advancement of Curriculum Studies online conference.
+Interactive, self-contained HTML presentation for the American Association for the Advancement of Curriculum Studies online conference, June 25–27, 2026.
 
 ## Live presentation
 
@@ -36,13 +36,14 @@ Open `index.html` in a modern browser.
 - Clickable distributed-curriculum system map
 - Everyday subversion practice explorer
 - Guided praxis statement builder with a copy-for-chat action
-- Audience-route selector for the public research ecosystem
+- Explicit qualifying-paper-to-proposal-to-future-study boundary
+- Current proposal research questions and Merriam-aligned study framing
 
 The audience pulse and praxis builder are local to the browser. No participant data is transmitted or collected.
 
 ## Source and privacy note
 
-The presentation links to public scholarship, the user-shared research folder, and the user-shared mixed methods document. Do not add private participant data, identifiable research material, credentials, or internal district information to this public presentation.
+The presentation links only to public scholarship, public proposal-orientation tools, and public evidence sources. Do not add private participant data, identifiable research material, credentials, internal district information, or future study records to this public presentation.
 
 ## Export
 
