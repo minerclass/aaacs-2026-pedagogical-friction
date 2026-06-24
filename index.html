@@ -100,8 +100,25 @@
 
     .kicker { color: var(--ember); font-weight: 700; }
     .dark .kicker, .blue .kicker { color: var(--gold); }
-    .slide-number { color: var(--muted); }
+    .slide-number { color: var(--muted); margin-left: auto; }
     .dark .slide-number, .blue .slide-number { color: rgba(255,255,255,.58); }
+
+    .mode-tag {
+      font-family: var(--mono);
+      font-size: clamp(.58rem, .82vw, .76rem);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-left: 14px;
+      padding: 3px 10px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .mode-live { color: var(--ember); }
+    .mode-device { color: var(--moss); }
+    .dark .mode-live, .blue .mode-live { color: var(--gold); }
+    .dark .mode-device, .blue .mode-device { color: #9ec6b3; }
 
     .content {
       align-self: center;
@@ -835,7 +852,7 @@
     </section>
 
     <section class="slide compact" data-title="When Output Looks Like Learning">
-      <div class="topline"><span class="kicker">Movement I · Recognize</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Movement I · Recognize</span><span class="mode-tag mode-live">Live moment</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>When the output <em>looks like learning</em></h2>
         <div class="interaction">
@@ -856,7 +873,7 @@
     </section>
 
     <section class="slide blue" data-title="Curricular Authority">
-      <div class="topline"><span class="kicker">Audience pulse</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Audience pulse</span><span class="mode-tag mode-live">Live moment</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Where does curricular authority reside when AI enters the classroom?</h2>
         <p class="lede">Make a provisional choice before we talk.</p>
@@ -904,7 +921,7 @@
     </section>
 
     <section class="slide compact" data-title="Ong and Tertiary Algorithmicity">
-      <div class="topline"><span class="kicker">Movement II · Theorize</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Movement II · Theorize</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Ong helps us ask what the medium does to <em>knowing</em></h2>
         <div class="timeline" id="ongTimeline">
@@ -928,7 +945,7 @@
     </section>
 
     <section class="slide dark compact" data-title="Holding the Tension">
-      <div class="topline"><span class="kicker">The intellectual hinge</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">The intellectual hinge</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>This paper makes two traditions <em>answer each other</em></h2>
         <div class="grid-3" id="tensionLenses">
@@ -955,7 +972,7 @@
     </section>
 
     <section class="slide compact" data-title="Learner-Facing Dimensions and Institutional Conditions">
-      <div class="topline"><span class="kicker">Interactive framework</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Interactive framework</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Three learner-facing dimensions, shaped by an <em>institutional condition</em></h2>
         <div class="dimension-stage">
@@ -989,7 +1006,7 @@
     </section>
 
     <section class="slide dark" data-title="Friction Lab">
-      <div class="topline"><span class="kicker">A live case · 60 seconds</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">A live case · 60 seconds</span><span class="mode-tag mode-live">Live moment</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>The <em>friction lab</em></h2>
         <div class="interaction">
@@ -1019,7 +1036,7 @@
     </section>
 
     <section class="slide compact pathways-slide" data-title="Pathways to Curriculum Studies">
-      <div class="topline"><span class="kicker">Curriculum-studies pathways</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Curriculum-studies pathways</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Pedagogical friction is already a <em>curriculum studies</em> question</h2>
         <div class="path-controls">
@@ -1117,7 +1134,7 @@
     </section>
 
     <section class="slide compact" data-title="Curriculum Is Distributed">
-      <div class="topline"><span class="kicker">The expanded curriculum</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">The expanded curriculum</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Curriculum now lives across a <em>distributed system</em></h2>
         <div class="grid-4" id="systemMap">
@@ -1133,7 +1150,7 @@
     </section>
 
     <section class="slide dark compact" data-title="Everyday Acts of Subversion">
-      <div class="topline"><span class="kicker">Movement IV · Act</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Movement IV · Act</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>What everyday acts of subversion already <em>exist</em>?</h2>
         <div class="grid-3" id="practiceExplorer">
@@ -1151,7 +1168,7 @@
     </section>
 
     <section class="slide compact" data-title="Build a Subversive Move">
-      <div class="topline"><span class="kicker">Design activity · build yours on your device</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Design activity · build yours on your device</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Design one <em>friction-preserving move</em></h2>
         <div class="builder-grid">
@@ -1221,7 +1238,7 @@
     </section>
 
     <section class="slide compact contribution-slide" data-title="What This Offers Curriculum Studies">
-      <div class="topline"><span class="kicker">Contribution</span><span class="slide-number"></span></div>
+      <div class="topline"><span class="kicker">Contribution</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>What pedagogical friction offers <em>curriculum studies</em></h2>
         <div class="grid-3">
