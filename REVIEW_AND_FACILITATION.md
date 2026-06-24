@@ -4,7 +4,7 @@
 
 The 23-slide source deck had a strong scholarly spine and already addressed both reviewer concerns at a headline level. Its main limitation was not content depth; it was audience position. Most slides asked the audience to receive a finished argument rather than participate in the complicated conversation the argument calls for.
 
-The interactive rebuild preserves the full-hour arc while changing the presentation rhythm:
+The interactive rebuild preserves the argument's full arc while changing the presentation rhythm (see the panel-cut run of show below for the ~20–25 minute live path):
 
 - Claims alternate with audience judgments, case analysis, and design work.
 - Reviewer 1's cognitive science / curriculum theory / Ong tension becomes an explicit intellectual hinge.
@@ -15,18 +15,29 @@ The interactive rebuild preserves the full-hour arc while changing the presentat
 - The Ong timeline, theory bridge, distributed-curriculum map, subversion practices, and public-scholarship routes are audience-controlled explorers.
 - The praxis activity now builds a complete situated statement that participants can copy directly into conference chat.
 
-## Suggested 60-minute run of show
+## Panel reality: this is a ~20–25 minute slot, not an hour
+
+AAACS 2026 places this paper in **Concurrent Session 9 (June 27, 10:40 am–12:10 pm EST), a 90-minute block shared with two other papers.** Plan for roughly **20–25 minutes of presenting** plus shared Q&A. The 23-slide deck doubles as the on-device artifact participants open via the QR code, so it stays complete; the live run below is a *path through it*, not a different deck.
+
+Triage decisions baked into the live cut:
+- **One live interactive moment only — the audience pulse (slide 4, ~30 seconds).** Everything else interactive is presenter-narrated or self-serve on the audience's own devices.
+- **The two former five-minute activities are demoted.** The Friction Lab (slide 11) is now a 60-second live case with the games marked "go deeper on your own device." The praxis builder (slide 17) is a 30-second live demo, after which participants build their own and paste it into chat.
+- **The explorer slides are narrated, not clicked through.** Land one example on the Ong timeline, one tension lens, one curriculum-studies pathway, one system node — do not walk all options live.
+- **Games are never launched live.** They are take-home artifacts pointed to, not demonstrated.
+
+## Suggested ~22-minute run of show
 
 | Time | Slides | Purpose |
 | --- | --- | --- |
-| 0–5 minutes | 1–2 | Establish the central question and participatory format. |
-| 5–12 minutes | 3–5 | Diagnose output that looks like learning and connect it to curricular enclosure. |
-| 12–25 minutes | 6–9 | Build the Ong / learning science / curriculum theory bridge and introduce the framework. |
-| 25–34 minutes | 10–11 | Complicate the framework through productive and exclusionary friction. |
-| 34–42 minutes | 12–15 | Establish explicit curriculum-studies pathways and uneven infrastructural conditions. |
-| 42–51 minutes | 16–18 | Name everyday subversive practices and let participants design one situated move. |
-| 51–56 minutes | 19–21 | Separate completed theory, the current proposal, and future findings; then connect the argument to the proposed empirical inquiry. |
-| 56–60 minutes | 22–23 | State the contribution and open discussion. |
+| 0:00–2:00 | 1–2 | Open on the learning problem, not the tech. Invite the QR scan; name that the deck collects nothing — the refusal is the argument. |
+| 2:00–4:30 | 3–4 | Recognize: output that looks like learning (quick choice), then the **audience pulse** — the one live activity. |
+| 4:30–6:30 | 5–6 | Name algorithmic enclosure as curricular enclosure; land the adoption-outpaces-guidance pattern without reading every statistic. |
+| 6:30–11:00 | 7–9 | The intellectual core. Ong hinge (foreground ONE media transition), the two-traditions tension (foreground ONE lens), the framework's dimensions plus the institutional condition. Spend the most time here. |
+| 11:00–13:00 | 10–11 | The guardrail: friction is not automatically good, then the 60-second multilingual case. Games stay on-device. |
+| 13:00–16:00 | 12–15 | Complicate: curriculum-studies pathways (foreground fugitivity as the limit you must answer), the subversion clarification, uneven enclosure, the distributed system (name it, don't click all four). |
+| 16:00–18:30 | 16–17 | Act: the practices menu (point, don't read six) and a 30-second live demo of the praxis builder — then "build yours on your device and drop it in chat." |
+| 18:30–21:00 | 18–21 | The proposal-stage boundary, the three RQs, positionality, and contribution — kept brief unless the room asks for methods detail. |
+| 21:00–22:00 | 22–23 | One discussion question and the closing claim. Leave the conversation unfinished for shared panel Q&A. |
 
 ## Reviewer-response language
 
