@@ -183,9 +183,12 @@
     .footer {
       color: var(--muted);
       font-size: clamp(.72rem, 1vw, .95rem);
+      box-sizing: border-box;
+      padding-right: clamp(300px, 19vw, 390px);
     }
     .dark .footer, .blue .footer { color: rgba(255,255,255,.6); }
     .footer a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .footer > :last-child { text-align: right; }
 
     .controls {
       position: fixed;
@@ -763,6 +766,8 @@
 
     @media (max-width: 900px) {
       .slide { padding: 28px 24px 48px; }
+      .footer { padding-right: 180px; }
+      .controls .optional { display: none; }
       .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .dimension-stage, .grid-2 { grid-template-columns: 1fr; }
       .dimension-buttons { grid-template-columns: repeat(3, 1fr); }
