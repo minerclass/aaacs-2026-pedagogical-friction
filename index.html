@@ -464,6 +464,12 @@
     }
     .timeline .step:hover, .timeline .step.selected { transform: translateY(-4px); border-color: var(--ember); }
     .timeline .step:last-child { border-color: var(--ember); }
+    .timeline .step.extension { border-color: var(--ember); }
+    .timeline-labels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 22px; }
+    .timeline-labels + .timeline { margin-top: 8px; }
+    .tl-label { align-self: end; font-family: var(--mono); font-size: clamp(.6rem, .9vw, .78rem); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-bottom: 6px; border-bottom: 3px solid currentColor; }
+    .tl-label.ong { grid-column: 1 / span 3; color: var(--moss); }
+    .tl-label.ext { grid-column: 4 / span 2; color: var(--ember); }
     .timeline p { font-size: clamp(.82rem, 1.2vw, 1.18rem); }
     .explorer-detail {
       margin-top: 22px;
@@ -773,6 +779,8 @@
       .dimension-buttons { grid-template-columns: repeat(3, 1fr); }
       .dimension-detail { min-height: 250px; }
       .timeline { grid-template-columns: 1fr; }
+      .timeline-labels { grid-template-columns: 1fr; gap: 4px; }
+      .tl-label.ong, .tl-label.ext { grid-column: 1; }
       .timeline .step { border-top: 0; border-left: 5px solid var(--moss); padding: 4px 0 4px 14px; }
       .builder-grid { grid-template-columns: 1fr; }
       .title-layout { grid-template-columns: 1fr; }
@@ -929,12 +937,16 @@
       <div class="topline"><span class="kicker">Movement II · Theorize</span><span class="mode-tag mode-device">On your device</span><span class="slide-number"></span></div>
       <div class="content">
         <h2>Ong helps us ask what the medium does to <em>knowing</em></h2>
+        <div class="timeline-labels">
+          <span class="tl-label ong">Ong · 1982</span>
+          <span class="tl-label ext">Miner's extension</span>
+        </div>
         <div class="timeline" id="ongTimeline">
           <button class="step selected" data-stage="orality"><h3>Primary orality</h3><p>Knowledge is communal, embodied, and held in memory.</p></button>
           <button class="step" data-stage="literacy"><h3>Literacy</h3><p>The word becomes inspectable, abstracted, and durable.</p></button>
           <button class="step" data-stage="secondary"><h3>Secondary orality</h3><p>Electronic media restore participatory presence through literate systems.</p></button>
-          <button class="step" data-stage="algorithmic"><h3>Algorithmic secondary orality</h3><p>Platforms curate the symbolic field and its circulation.</p></button>
-          <button class="step" data-stage="tertiary"><h3>Tertiary algorithmicity</h3><p>Systems generate symbolic content at scale, before human thought begins.</p></button>
+          <button class="step extension" data-stage="algorithmic"><h3>Algorithmic secondary orality</h3><p>Platforms curate the symbolic field and its circulation.</p></button>
+          <button class="step extension" data-stage="tertiary"><h3>Tertiary algorithmicity</h3><p>Systems generate symbolic content at scale, before human thought begins.</p></button>
         </div>
         <article class="explorer-detail" id="ongDetail" aria-live="polite"></article>
         <div class="tool-launch">
