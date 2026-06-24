@@ -422,6 +422,14 @@
       background: rgba(213,174,88,.22);
       box-shadow: inset 0 0 0 2px rgba(213,174,88,.55);
     }
+    .private-choice {
+      margin-top: 18px;
+      padding: 16px 20px;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 14px 14px 0;
+      background: rgba(255,255,255,.08);
+    }
+    .private-choice p { margin: 0; font-size: clamp(.92rem, 1.3vw, 1.3rem); }
 
     .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 32px; }
     .timeline .step {
@@ -847,19 +855,22 @@
       <aside class="speaker-notes">Allow 45 seconds for a choice and chat response. Ask: What would you need to see beyond the artifact? Draw attention to explanation, transfer, defense, and ownership.</aside>
     </section>
 
-    <section class="slide blue" data-title="A Private Pulse">
+    <section class="slide blue" data-title="Curricular Authority">
       <div class="topline"><span class="kicker">Audience pulse</span><span class="slide-number"></span></div>
       <div class="content">
-        <h2>Where is the most consequential curricular decision being made?</h2>
-        <p class="lede">Make your own call. Nothing leaves your device, and that is the point.</p>
+        <h2>Where does curricular authority reside when AI enters the classroom?</h2>
+        <p class="lede">Make a provisional choice before we talk.</p>
         <div class="pulse-row" id="pulseRow">
-          <button class="pulse" data-vote="0"><span>In the assignment</span></button>
-          <button class="pulse" data-vote="1"><span>In the interface</span></button>
-          <button class="pulse" data-vote="2"><span>In institutional policy</span></button>
+          <button class="pulse" data-choice="assignment" aria-pressed="false"><span>In the assignment</span></button>
+          <button class="pulse" data-choice="interface" aria-pressed="false"><span>In the interface</span></button>
+          <button class="pulse" data-choice="policy" aria-pressed="false"><span>In institutional policy</span></button>
+        </div>
+        <div class="private-choice" id="privateChoice" aria-live="polite">
+          <p>Select one site of authority. Then ask who controls it—and whose judgment becomes invisible there.</p>
         </div>
       </div>
-      <div class="footer"><span>This poll collects nothing. The room's answer lives in our conversation, not a dashboard.</span><span>No data transmitted</span></div>
-      <aside class="speaker-notes">This is a per-device reflection prompt, not a live aggregate. In an online session each participant sees only their own selection, so take the real pulse in chat and ask who had the authority to make that decision. Name the design choice out loud: the poll deliberately refuses to extract participant data, which enacts the same anti-extraction argument the talk makes about platforms. Then surface the core claim that curriculum is distributed across instruction, product design, procurement, policy, and defaults, and that no single answer is sufficient.</aside>
+      <div class="footer"><span>Private reflection—no response is collected.</span><span>The room's answer lives in conversation.</span></div>
+      <aside class="speaker-notes">Keep this to about 20 seconds. Ask participants to make a provisional choice, then ask: Who controls the site you selected, and whose judgment becomes invisible there? Take two or three responses in chat or aloud. Surface the core claim that curricular authority is distributed across assignments, interfaces, procurement, policy, and defaults; no single answer is sufficient. Transition directly to the next slide: when judgment and authority move into platforms and systems, algorithmic enclosure becomes curricular enclosure.</aside>
     </section>
 
     <section class="slide dark compact" data-title="Algorithmic Enclosure">
@@ -1480,10 +1491,21 @@
       });
     });
 
+    const privateChoice = document.getElementById("privateChoice");
+    const privateChoiceLabels = {
+      assignment: "the assignment",
+      interface: "the interface",
+      policy: "institutional policy"
+    };
     document.querySelectorAll(".pulse").forEach(button => {
       button.addEventListener("click", () => {
-        document.querySelectorAll(".pulse").forEach(p => p.classList.remove("selected"));
+        document.querySelectorAll(".pulse").forEach(p => {
+          p.classList.remove("selected");
+          p.setAttribute("aria-pressed", "false");
+        });
         button.classList.add("selected");
+        button.setAttribute("aria-pressed", "true");
+        privateChoice.innerHTML = `<p><strong>You chose ${privateChoiceLabels[button.dataset.choice]}.</strong> Who controls this site—and whose judgment becomes invisible there?</p>`;
       });
     });
 
