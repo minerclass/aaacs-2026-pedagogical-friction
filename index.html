@@ -470,6 +470,8 @@
     .tl-label { align-self: end; font-family: var(--mono); font-size: clamp(.6rem, .9vw, .78rem); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-bottom: 6px; border-bottom: 3px solid currentColor; }
     .tl-label.ong { grid-column: 1 / span 3; color: var(--moss); }
     .tl-label.ext { grid-column: 4 / span 2; color: var(--ember); }
+    .attribution { margin-top: 12px; font-family: var(--mono); font-size: clamp(.66rem, .92vw, .82rem); font-weight: 700; letter-spacing: .03em; color: var(--ember); }
+    .dark .attribution, .blue .attribution { color: var(--gold); }
     .timeline p { font-size: clamp(.82rem, 1.2vw, 1.18rem); }
     .explorer-detail {
       margin-top: 22px;
@@ -938,7 +940,7 @@
       <div class="content">
         <h2>Ong helps us ask what the medium does to <em>knowing</em></h2>
         <div class="timeline-labels">
-          <span class="tl-label ong">Ong · 1982</span>
+          <span class="tl-label ong">Ong · 1982/2002</span>
           <span class="tl-label ext">Miner's extension</span>
         </div>
         <div class="timeline" id="ongTimeline">
@@ -1464,8 +1466,8 @@
       orality: { title: "Primary orality · knowledge lives between people", text: "Memory, presence, repetition, and communal response shape what can be known. The knower cannot stand wholly outside the living word.", question: "What forms of knowing become possible only through participation?" },
       literacy: { title: "Literacy · the word becomes an object", text: "Writing enables distance, analysis, durable records, and solitary reflection while changing the relationship between speaker, text, and audience.", question: "What does abstraction make possible, and what forms of presence does it thin?" },
       secondary: { title: "Secondary orality · participatory presence returns", text: "Electronic media recover immediacy and communal feeling, but remain produced through literate institutions and broadcast systems.", question: "Who controls the channels through which participation becomes possible?" },
-      algorithmic: { title: "Algorithmic secondary orality · circulation is curated", text: "Platforms sort, recommend, rank, and personalize the symbolic environment. The field of attention becomes computationally organized.", question: "What becomes curriculum when an algorithm organizes what is encountered?" },
-      tertiary: { title: "Tertiary algorithmicity · symbolic production is generated", text: "Generative systems do not only circulate human symbolic work. They produce its visible forms, making fluent performance available before human interpretation or commitment.", question: "What happens to study when the medium can perform thought’s visible traces?" }
+      algorithmic: { title: "Algorithmic secondary orality · circulation is curated", text: "Platforms sort, recommend, rank, and personalize the symbolic environment. The field of attention becomes computationally organized.", question: "What becomes curriculum when an algorithm organizes what is encountered?", attribution: "My dissertation extends Ong here, where platform curation enters the symbolic field." },
+      tertiary: { title: "Tertiary algorithmicity · symbolic production is generated", text: "Generative systems do not only circulate human symbolic work. They produce its visible forms, making fluent performance available before human interpretation or commitment.", question: "What happens to study when the medium can perform thought’s visible traces?", attribution: "My dissertation extends Ong here, where generation itself becomes the medium." }
     };
     const tensionLenses = {
       mechanism: { title: "Mechanism lens · Why can difficulty matter?", text: "Learning sciences identify mechanisms through which prediction, retrieval, generation, failure, and revision can support durable understanding.", question: "Risk: treating the learner as a processing system and the purpose of education as measurable performance." },
@@ -1499,7 +1501,7 @@
       const detail = document.getElementById(detailId);
       const render = key => {
         const item = data[key];
-        detail.innerHTML = `<h3>${item.title}</h3><p>${item.text}</p>${item.question ? `<p><strong>${item.question}</strong></p>` : ""}${item.url ? `<p><a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a></p>` : ""}`;
+        detail.innerHTML = `<h3>${item.title}</h3><p>${item.text}</p>${item.question ? `<p><strong>${item.question}</strong></p>` : ""}${item.attribution ? `<p class="attribution">${item.attribution}</p>` : ""}${item.url ? `<p><a class="link-btn" href="${item.url}" target="_blank" rel="noopener">${item.label}</a></p>` : ""}`;
       };
       container.querySelectorAll(`[data-${attribute}]`).forEach(button => {
         button.addEventListener("click", () => {
