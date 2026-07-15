@@ -37,7 +37,7 @@ Open `index.html` in a modern browser.
 - Everyday subversion practice explorer
 - Guided praxis statement builder with a copy-for-chat action
 - Explicit qualifying-paper-to-proposal-to-future-study boundary
-- Current proposal research questions and Merriam-aligned study framing
+- Current proposal research questions and constructivist qualitative study framing
 
 The audience pulse and praxis builder are local to the browser. No participant data is transmitted or collected.
 
