@@ -63,7 +63,7 @@ Pedagogical friction enters curriculum studies through more than application to 
 - Treat criticism of the framework as evidence of a complicated conversation, not a threat to the presentation.
 - Keep the research-design slides brief unless the audience asks for methods detail.
 - Name the proposal-stage boundary plainly: the qualifying paper established the conceptual argument, the Chapters 1–3 proposal defines the inquiry, and dissertation findings do not yet exist.
-- Describe the design as a Merriam-aligned interpretive case study with a qualitative-dominant convergent mixed methods design; do not use the older collective instrumental case-study label.
+- Describe the design as a qualitative-dominant convergent mixed methods study grounded in constructivist qualitative inquiry. Keep participant meaning central and quantitative evidence in a supporting contextual role.
 - Use `R` to open all public resources, `N` for speaker notes, and `O` for the slide overview.
 
 ## Privacy boundary
